@@ -4,7 +4,8 @@
   "description": "Boiler Plate Automatically Setting Up a React.js Environment Using Npm, Babel 6 and Webpack",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "dev": "webpack -d --watch"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,15 @@
   "bugs": {
     "url": "https://github.com/shenders13/ReactBoilerPlate/issues"
   },
-  "homepage": "https://github.com/shenders13/ReactBoilerPlate#readme"
+  "homepage": "https://github.com/shenders13/ReactBoilerPlate#readme",
+  "dependencies": {
+    "babel-core": "^6.20.0",
+    "babel-loader": "^6.2.9",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "path": "^0.12.7",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "webpack": "^1.14.0"
+  }
 }
