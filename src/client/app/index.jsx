@@ -1,17 +1,15 @@
 import React from 'react';
 import {render} from 'react-dom';
-import ExampleComponent from './ExampleComponent.jsx';
+import App from './containers/App.jsx'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import reducers from './reducers'
 
+let store = createStore(reducers)
 
-class App extends React.Component {
-  render () {
-    return (
-      <div>
-        <p> Hello World App!</p>
-        <ExampleComponent />
-      </div>
-    );
-  }
-}
-
-render(<App/>, document.getElementById('app'));
+render(
+  <Provider store={store}>
+    <App/>
+  </Provider>,
+   document.getElementById('app')
+);

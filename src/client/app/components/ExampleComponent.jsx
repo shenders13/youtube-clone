@@ -4,14 +4,12 @@ class ExampleComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {hello : "world"};
   }
-
 
   render() {
     return (
       <div>
-        <h1> ExampleComponent! </h1>
+        <p onClick={this.props.updateText}> Click Me (ExampleComponent)! </p>
       </div>
     );
   }
