@@ -1,0 +1,19 @@
+{
+  "name": "react-boiler-plate",
+  "version": "1.0.0",
+  "description": "Boiler Plate Automatically Setting Up a React.js Environment Using Npm, Babel 6 and Webpack",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shenders13/ReactBoilerPlate.git"
+  },
+  "author": "Sam Henderson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shenders13/ReactBoilerPlate/issues"
+  },
+  "homepage": "https://github.com/shenders13/ReactBoilerPlate#readme"
+}
