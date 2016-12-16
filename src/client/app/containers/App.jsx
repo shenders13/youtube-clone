@@ -10,17 +10,14 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log('props: ', props)
   }
 
   componentDidMount () {
-    console.log('this.searchHandler: ', this.searchHandler)
     this.searchHandler('Milkshake');
   }
 
 
   searchHandler(searchInput) {
-    console.log('this.YouTubeRequest: ', this.YouTubeRequest)
     this.YouTubeRequest({ key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", query: searchInput, max: 10 }, (videos) => { this.props.updateVideoList(videos) })
   }
 
