@@ -46,21 +46,22 @@ class App extends React.Component {
   }
 
   render () {
-    console.log('this.props.videos: ', this.props.videos)
+    console.log('VideoPlayer: ', VideoPlayer)
     return (
       <div>
-        <Search searchHandler={this.searchHandler}/>
+        <Search searchHandler={this.searchHandler.bind(this)}/>
+         <div className="col-md-7">
+           <VideoPlayer video={this.props.videos[0]}/>
+         </div>
+         <div className="col-md-5">
+           <VideoList videos={this.props.videos} />
+         </div>
       </div>
     );
   }
 }
 
-// <div className="col-md-7">
-//   <VideoPlayer video={this.props.videos[0]}/>
-// </div>
-// <div className="col-md-5">
-//   <VideoList videos={this.props.videos} />
-// </div>
+
 
 
 

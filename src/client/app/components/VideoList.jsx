@@ -14,3 +14,5 @@ const VideoList = ({ videos }) => {
 VideoList.propTypes = {
   videos: React.PropTypes.array.isRequired
 };
+
+export default VideoList;

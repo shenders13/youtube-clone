@@ -18,3 +18,5 @@ const VideoPlayer = ({ video }) => {
 VideoPlayer.propTypes = {
   video: React.PropTypes.object.isRequired
 };
+
+export default VideoPlayer;

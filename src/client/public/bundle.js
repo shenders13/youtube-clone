@@ -22117,25 +22117,27 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log('this.props.videos: ', this.props.videos);
+	      console.log('VideoPlayer: ', _VideoPlayer2.default);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Search2.default, { searchHandler: this.searchHandler })
+	        _react2.default.createElement(_Search2.default, { searchHandler: this.searchHandler.bind(this) }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-md-7' },
+	          _react2.default.createElement(_VideoPlayer2.default, { video: this.props.videos[0] })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-md-5' },
+	          _react2.default.createElement(_VideoList2.default, { videos: this.props.videos })
+	        )
 	      );
 	    }
 	  }]);
 	
 	  return App;
 	}(_react2.default.Component);
-	
-	// <div className="col-md-7">
-	//   <VideoPlayer video={this.props.videos[0]}/>
-	// </div>
-	// <div className="col-md-5">
-	//   <VideoList videos={this.props.videos} />
-	// </div>
-	
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  var props = {
@@ -24873,6 +24875,10 @@
 
 	"use strict";
 	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -24910,6 +24916,8 @@
 	VideoPlayer.propTypes = {
 	  video: _react2.default.PropTypes.object.isRequired
 	};
+	
+	exports.default = VideoPlayer;
 
 /***/ },
 /* 223 */
@@ -24919,6 +24927,10 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
 	
@@ -24945,6 +24957,8 @@
 	VideoList.propTypes = {
 	  videos: _react2.default.PropTypes.array.isRequired
 	};
+	
+	exports.default = VideoList;
 
 /***/ },
 /* 224 */
@@ -24954,6 +24968,10 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
 	
@@ -24994,6 +25012,8 @@
 	VideoListEntry.propTypes = {
 	  video: _react2.default.PropTypes.object.isRequired
 	};
+	
+	exports.default = VideoListEntry;
 
 /***/ }
 /******/ ]);

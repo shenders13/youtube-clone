@@ -17,3 +17,5 @@ const VideoListEntry = ({ video }) => {
 VideoListEntry.propTypes = {
   video: React.PropTypes.object.isRequired
 };
+
+export default VideoListEntry;
