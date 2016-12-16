@@ -4,6 +4,7 @@
   "description": "Boiler Plate Automatically Setting Up a React.js Environment Using Npm, Babel 6 and Webpack",
   "main": "index.js",
   "scripts": {
+    "start": "node server",
     "test": "test",
     "dev": "webpack -d --watch"
   },
