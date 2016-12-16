@@ -8,13 +8,20 @@ import VideoList from '../components/VideoList.jsx'
 
 class App extends React.Component {
 
-  searchHandler(searchInput, dispatch) {
-    this.YouTubeRequest(
-      { key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", 
-        query: searchInput, 
-        max: 5 },
-      (videoList) => { dispatch(Actions.updateVideoListAction(videoList)) }
-    )
+  constructor(props) {
+    super(props);
+    console.log('props: ', props)
+  }
+
+  componentDidMount () {
+    console.log('this.searchHandler: ', this.searchHandler)
+    this.searchHandler('Milkshake');
+  }
+
+
+  searchHandler(searchInput) {
+    console.log('this.YouTubeRequest: ', this.YouTubeRequest)
+    this.YouTubeRequest({ key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", query: searchInput, max: 5 }, (videos) => { this.props.updateVideoList(videos) })
   }
 
   YouTubeRequest(options, callback) {
@@ -39,7 +46,7 @@ class App extends React.Component {
   }
 
   render () {
-    console.log('this.props: ', this.props)
+    console.log('this.props.videos: ', this.props.videos)
     return (
       <div>
         <Search searchHandler={this.searchHandler}/>
@@ -80,6 +87,5 @@ const AppConnected = connect(
   mapStateToProps,
   mapDispatchToProps
 )(App);
-
 
 export default AppConnected;

@@ -22067,19 +22067,29 @@
 	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
 	
-	  function App() {
+	  function App(props) {
 	    _classCallCheck(this, App);
 	
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+	
+	    console.log('props: ', props);
+	    return _this;
 	  }
 	
 	  _createClass(App, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      console.log('this.searchHandler: ', this.searchHandler);
+	      this.searchHandler('Milkshake');
+	    }
+	  }, {
 	    key: 'searchHandler',
-	    value: function searchHandler(searchInput, dispatch) {
-	      this.YouTubeRequest({ key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk",
-	        query: searchInput,
-	        max: 5 }, function (videoList) {
-	        dispatch(_index2.default.updateVideoListAction(videoList));
+	    value: function searchHandler(searchInput) {
+	      var _this2 = this;
+	
+	      console.log('this.YouTubeRequest: ', this.YouTubeRequest);
+	      this.YouTubeRequest({ key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", query: searchInput, max: 5 }, function (videos) {
+	        _this2.props.updateVideoList(videos);
 	      });
 	    }
 	  }, {
@@ -22107,7 +22117,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log('this.props: ', this.props);
+	      console.log('this.props.videos: ', this.props.videos);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
