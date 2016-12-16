@@ -63,7 +63,7 @@
 	
 	var _redux = __webpack_require__(/*! redux */ 190);
 	
-	var _reducers = __webpack_require__(/*! ./reducers */ 218);
+	var _reducers = __webpack_require__(/*! ./reducers */ 219);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -22036,13 +22036,25 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 179);
 	
+	var _Search = __webpack_require__(/*! ../components/Search.jsx */ 221);
+	
+	var _Search2 = _interopRequireDefault(_Search);
+	
 	var _ExampleComponent = __webpack_require__(/*! ../components/ExampleComponent.jsx */ 217);
 	
 	var _ExampleComponent2 = _interopRequireDefault(_ExampleComponent);
 	
-	var _index = __webpack_require__(/*! ../actions/index */ 220);
+	var _index = __webpack_require__(/*! ../actions/index */ 218);
 	
 	var _index2 = _interopRequireDefault(_index);
+	
+	var _VideoPlayer = __webpack_require__(/*! ../components/VideoPlayer.jsx */ 222);
+	
+	var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
+	
+	var _VideoList = __webpack_require__(/*! ../components/VideoList.jsx */ 223);
+	
+	var _VideoList2 = _interopRequireDefault(_VideoList);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -22062,19 +22074,44 @@
 	  }
 	
 	  _createClass(App, [{
+	    key: 'searchHandler',
+	    value: function searchHandler(searchInput, dispatch) {
+	      this.YouTubeRequest({ key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk",
+	        query: searchInput,
+	        max: 5 }, function (videoList) {
+	        dispatch(_index2.default.updateVideoListAction(videoList));
+	      });
+	    }
+	  }, {
+	    key: 'YouTubeRequest',
+	    value: function YouTubeRequest(options, callback) {
+	      $.ajax({
+	        url: 'https://www.googleapis.com/youtube/v3/search',
+	        type: 'GET',
+	        data: {
+	          key: options.key,
+	          q: options.query,
+	          maxResults: options.max,
+	          part: 'snippet',
+	          videoEmbeddable: true,
+	          type: 'video'
+	        },
+	        success: function success(data) {
+	          callback(data.items);
+	        },
+	        error: function error(_error) {
+	          console.error('ajax request didnt work: ', _error);
+	        }
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      console.log('this.props: ', this.props);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          ' Props from store: ',
-	          this.props.text
-	        ),
-	        _react2.default.createElement(_ExampleComponent2.default, { updateText: this.props.updateText })
+	        _react2.default.createElement(_Search2.default, { searchHandler: this.searchHandler })
 	      );
 	    }
 	  }]);
@@ -22082,8 +22119,18 @@
 	  return App;
 	}(_react2.default.Component);
 	
+	// <div className="col-md-7">
+	//   <VideoPlayer video={this.props.videos[0]}/>
+	// </div>
+	// <div className="col-md-5">
+	//   <VideoList videos={this.props.videos} />
+	// </div>
+	
+	
 	var mapStateToProps = function mapStateToProps(state) {
-	  var props = { text: state.exampleReducer.text
+	  var props = {
+	    text: state.exampleReducer.text,
+	    videos: state.exampleReducer.videos
 	  };
 	  return props;
 	};
@@ -22092,6 +22139,9 @@
 	  return {
 	    updateText: function updateText() {
 	      dispatch(_index2.default.exampleAction({ text: "STORE UPDATED!" }));
+	    },
+	    updateVideoList: function updateVideoList(videos) {
+	      dispatch(_index2.default.updateVideoListAction(videos));
 	    }
 	  };
 	};
@@ -24483,7 +24533,7 @@
 	        _react2.default.createElement(
 	          'p',
 	          { onClick: this.props.updateText },
-	          ' Click Me (ExampleComponent)! '
+	          ' Click Me Yo (ExampleComponent)! '
 	        )
 	      );
 	    }
@@ -24496,65 +24546,6 @@
 
 /***/ },
 /* 218 */
-/*!******************************************!*\
-  !*** ./src/client/app/reducers/index.js ***!
-  \******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _redux = __webpack_require__(/*! redux */ 190);
-	
-	var _exampleReducer = __webpack_require__(/*! ./exampleReducer */ 219);
-	
-	var _exampleReducer2 = _interopRequireDefault(_exampleReducer);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mainReducer = (0, _redux.combineReducers)({
-	  exampleReducer: _exampleReducer2.default
-	});
-	
-	exports.default = mainReducer;
-
-/***/ },
-/* 219 */
-/*!***************************************************!*\
-  !*** ./src/client/app/reducers/exampleReducer.js ***!
-  \***************************************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var initialState = {
-	  text: 'text from redux store'
-	};
-	
-	var exampleReducer = function exampleReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-	  var action = arguments[1];
-	
-	  switch (action.type) {
-	    case 'EXAMPLE_ACTION_TYPE':
-	      return {
-	        text: action.text.text
-	      };
-	    default:
-	      return state;
-	  }
-	};
-	
-	exports.default = exampleReducer;
-
-/***/ },
-/* 220 */
 /*!*****************************************!*\
   !*** ./src/client/app/actions/index.js ***!
   \*****************************************/
@@ -24583,12 +24574,416 @@
 	        text: text
 	      };
 	    }
+	  }, {
+	    key: 'updateVideoListAction',
+	    value: function updateVideoListAction(videos) {
+	      return {
+	        type: 'UPDATE_VIDEO_LIST',
+	        videos: videos
+	      };
+	    }
 	  }]);
 	
 	  return Actions;
 	}();
 	
 	exports.default = Actions;
+
+/***/ },
+/* 219 */
+/*!******************************************!*\
+  !*** ./src/client/app/reducers/index.js ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(/*! redux */ 190);
+	
+	var _exampleReducer = __webpack_require__(/*! ./exampleReducer */ 220);
+	
+	var _exampleReducer2 = _interopRequireDefault(_exampleReducer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mainReducer = (0, _redux.combineReducers)({
+	  exampleReducer: _exampleReducer2.default
+	});
+	
+	exports.default = mainReducer;
+
+/***/ },
+/* 220 */
+/*!***************************************************!*\
+  !*** ./src/client/app/reducers/exampleReducer.js ***!
+  \***************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var initialState = {
+	  text: 'text from redux store',
+	  videos: [{
+	    kind: 'youtube#searchResult',
+	    etag: 'abQHWywil_AkNqdqji7_FqiK-u4/Ykxo_CqKu8F8kcm-iNgL332gQTY',
+	    id: {
+	      kind: 'youtube#video',
+	      videoId: '4ZAEBxGipoA'
+	    },
+	    snippet: {
+	      publishedAt: '2015-08-02T20:52:58.000Z',
+	      channelId: 'UCJbPGzawDH1njbqV-D5HqKw',
+	      title: 'React JS Tutorial for Beginners - 1 - Introduction',
+	      description: 'My website - https://www.thenewboston.com/videos.php Have questions about the tutorial or React? Ask them here ...',
+	      thumbnails: {
+	        default: {
+	          url: 'https://i.ytimg.com/vi/4ZAEBxGipoA/default.jpg',
+	          width: 120,
+	          height: 90
+	        },
+	        medium: {
+	          url: 'https://i.ytimg.com/vi/4ZAEBxGipoA/mqdefault.jpg',
+	          width: 320,
+	          height: 180
+	        },
+	        high: {
+	          url: 'https://i.ytimg.com/vi/4ZAEBxGipoA/hqdefault.jpg',
+	          width: 480,
+	          height: 360
+	        }
+	      },
+	      channelTitle: 'thenewboston',
+	      liveBroadcastContent: 'none'
+	    }
+	  }, {
+	    kind: 'youtube#searchResult',
+	    etag: 'abQHWywil_AkNqdqji7_FqiK-u4/tS3xe6KXEJbntCAmn01SmEuSYxg',
+	    id: {
+	      kind: 'youtube#video',
+	      videoId: 'mFEoarLnnqM'
+	    },
+	    snippet: {
+	      publishedAt: '2014-08-08T21:31:58.000Z',
+	      channelId: 'UCKKQaFUwyPb6iC-42rFRz2Q',
+	      title: 'Thinking in React, a step by step screencast tutorial',
+	      description: 'A step by step video tutorial that takes you through the correct way of coding Facebook React views. Check out the rest of the tagtree library: http://tagtree.tv.',
+	      thumbnails: {
+	        default: {
+	          url: 'https://i.ytimg.com/vi/mFEoarLnnqM/default.jpg',
+	          width: 120,
+	          height: 90
+	        },
+	        medium: {
+	          url: 'https://i.ytimg.com/vi/mFEoarLnnqM/mqdefault.jpg',
+	          width: 320,
+	          height: 180
+	        },
+	        high: {
+	          url: 'https://i.ytimg.com/vi/mFEoarLnnqM/hqdefault.jpg',
+	          width: 480,
+	          height: 360
+	        }
+	      },
+	      channelTitle: '',
+	      liveBroadcastContent: 'none'
+	    }
+	  }, {
+	    kind: 'youtube#searchResult',
+	    etag: 'abQHWywil_AkNqdqji7_FqiK-u4/FZYrgJg7qfkv0yfImJPujBKBmLk',
+	    id: {
+	      kind: 'youtube#video',
+	      videoId: '0ByoQm-vnYw'
+	    },
+	    snippet: {
+	      publishedAt: '2015-12-08T20:51:18.000Z',
+	      channelId: 'UClLXKYEEM8OBBx85DOa6-cg',
+	      title: 'React Tutorial for Beginners',
+	      description: 'Get the full course here: http://devslopes.com/react In this video you will learn how to setup your project for React development and you will build a simple React ...',
+	      thumbnails: {
+	        default: {
+	          url: 'https://i.ytimg.com/vi/0ByoQm-vnYw/default.jpg',
+	          width: 120,
+	          height: 90
+	        },
+	        medium: {
+	          url: 'https://i.ytimg.com/vi/0ByoQm-vnYw/mqdefault.jpg',
+	          width: 320,
+	          height: 180
+	        },
+	        high: {
+	          url: 'https://i.ytimg.com/vi/0ByoQm-vnYw/hqdefault.jpg',
+	          width: 480,
+	          height: 360
+	        }
+	      },
+	      channelTitle: '',
+	      liveBroadcastContent: 'none'
+	    }
+	  }, {
+	    kind: 'youtube#searchResult',
+	    etag: 'abQHWywil_AkNqdqji7_FqiK-u4/nSaavPWVkTWpn2p-ClwNj7xszf8',
+	    id: {
+	      kind: 'youtube#video',
+	      videoId: 'o5E894TmHJg'
+	    },
+	    snippet: {
+	      publishedAt: '2015-03-09T08:19:59.000Z',
+	      channelId: 'UCMYct3vtNaMwZAA3_DNsWMw',
+	      title: 'Flux Tutorial - Writing a Simple App in Flux and React',
+	      description: 'Hey! Write something in the comments, even if it\'s critical. I\'d love to hear feedback! (also, please thumbs-up if you like the vid, and I\'ll make more). Personally I ...',
+	      thumbnails: {
+	        default: {
+	          url: 'https://i.ytimg.com/vi/o5E894TmHJg/default.jpg',
+	          width: 120,
+	          height: 90
+	        },
+	        medium: {
+	          url: 'https://i.ytimg.com/vi/o5E894TmHJg/mqdefault.jpg',
+	          width: 320,
+	          height: 180
+	        },
+	        high: {
+	          url: 'https://i.ytimg.com/vi/o5E894TmHJg/hqdefault.jpg',
+	          width: 480,
+	          height: 360
+	        }
+	      },
+	      channelTitle: 'bengrunfeld',
+	      liveBroadcastContent: 'none'
+	    }
+	  }, {
+	    kind: 'youtube#searchResult',
+	    etag: 'abQHWywil_AkNqdqji7_FqiK-u4/3E7u1VZ18KYyfLIA6RgI2w-7nRI',
+	    id: {
+	      kind: 'youtube#video',
+	      videoId: 'Pd6Ub7Ju2RM'
+	    },
+	    snippet: {
+	      publishedAt: '2015-02-13T18:50:38.000Z',
+	      channelId: 'UCr5lOCcjZzNprLrhxO0WZQw',
+	      title: 'Learn React, Flux, and Flow: Part I',
+	      description: 'Brought to you by Formidable Labs and SeattleJS, Colin Megill walks us through Facebook\'s React framework in part one of this three-part series. The workshop ...',
+	      thumbnails: {
+	        default: {
+	          url: 'https://i.ytimg.com/vi/Pd6Ub7Ju2RM/default.jpg',
+	          width: 120,
+	          height: 90
+	        },
+	        medium: {
+	          url: 'https://i.ytimg.com/vi/Pd6Ub7Ju2RM/mqdefault.jpg',
+	          width: 320,
+	          height: 180
+	        },
+	        high: {
+	          url: 'https://i.ytimg.com/vi/Pd6Ub7Ju2RM/hqdefault.jpg',
+	          width: 480,
+	          height: 360
+	        }
+	      },
+	      channelTitle: '',
+	      liveBroadcastContent: 'none'
+	    }
+	  }]
+	};
+	
+	var exampleReducer = function exampleReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case 'EXAMPLE_ACTION_TYPE':
+	      return {
+	        text: action.text.text
+	      };
+	    case 'UPDATE_VIDEO_LIST':
+	      return {
+	        videos: action.videos
+	      };
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = exampleReducer;
+
+/***/ },
+/* 221 */
+/*!**********************************************!*\
+  !*** ./src/client/app/components/Search.jsx ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Search = function Search(_ref) {
+	  var searchHandler = _ref.searchHandler;
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "search-bar form-inline" },
+	    _react2.default.createElement("input", { onChange: function onChange(event) {
+	        return searchHandler(event.target.value);
+	      }, className: "form-control", type: "text" }),
+	    _react2.default.createElement(
+	      "button",
+	      { className: "btn hidden-sm-down" },
+	      _react2.default.createElement("span", { className: "glyphicon glyphicon-search" })
+	    )
+	  );
+	};
+	
+	Search.propTypes = {
+	  searchHandler: _react2.default.PropTypes.func.isRequired
+	};
+	
+	exports.default = Search;
+
+/***/ },
+/* 222 */
+/*!***************************************************!*\
+  !*** ./src/client/app/components/VideoPlayer.jsx ***!
+  \***************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var VideoPlayer = function VideoPlayer(_ref) {
+	  var video = _ref.video;
+	
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "video-player" },
+	    _react2.default.createElement(
+	      "div",
+	      { className: "embed-responsive embed-responsive-16by9" },
+	      _react2.default.createElement("iframe", { className: "embed-responsive-item", src: 'https://www.youtube.com/embed/' + video.id.videoId, allowFullScreen: true })
+	    ),
+	    _react2.default.createElement(
+	      "div",
+	      { className: "video-player-details" },
+	      _react2.default.createElement(
+	        "h3",
+	        null,
+	        video.snippet.title
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        null,
+	        video.snippet.description
+	      )
+	    )
+	  );
+	};
+	
+	VideoPlayer.propTypes = {
+	  video: _react2.default.PropTypes.object.isRequired
+	};
+
+/***/ },
+/* 223 */
+/*!*************************************************!*\
+  !*** ./src/client/app/components/VideoList.jsx ***!
+  \*************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _VideoListEntry = __webpack_require__(/*! ./VideoListEntry.jsx */ 224);
+	
+	var _VideoListEntry2 = _interopRequireDefault(_VideoListEntry);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var VideoList = function VideoList(_ref) {
+	  var videos = _ref.videos;
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'video-list media' },
+	    videos.map(function (video) {
+	      return _react2.default.createElement(_VideoListEntry2.default, { video: video });
+	    })
+	  );
+	};
+	
+	VideoList.propTypes = {
+	  videos: _react2.default.PropTypes.array.isRequired
+	};
+
+/***/ },
+/* 224 */
+/*!******************************************************!*\
+  !*** ./src/client/app/components/VideoListEntry.jsx ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var VideoListEntry = function VideoListEntry(_ref) {
+	  var video = _ref.video;
+	
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "video-list-entry" },
+	    _react2.default.createElement(
+	      "div",
+	      { className: "media-left media-middle" },
+	      _react2.default.createElement("img", { className: "media-object", src: video.snippet.thumbnails.default.url, alt: "" })
+	    ),
+	    _react2.default.createElement(
+	      "div",
+	      { className: "media-body" },
+	      _react2.default.createElement(
+	        "div",
+	        { className: "video-list-entry-title", onClick: function onClick() {
+	            props.handler(video);
+	          } },
+	        video.snippet.title
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        { className: "video-list-entry-detail" },
+	        video.snippet.description
+	      )
+	    )
+	  );
+	};
+	
+	VideoListEntry.propTypes = {
+	  video: _react2.default.PropTypes.object.isRequired
+	};
 
 /***/ }
 /******/ ]);

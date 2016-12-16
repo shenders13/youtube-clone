@@ -9,7 +9,7 @@ class ExampleComponent extends React.Component {
   render() {
     return (
       <div>
-        <p onClick={this.props.updateText}> Click Me (ExampleComponent)! </p>
+        <p onClick={this.props.updateText}> Click Me Yo (ExampleComponent)! </p>
       </div>
     );
   }

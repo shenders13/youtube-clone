@@ -5,4 +5,13 @@ export default class Actions {
       text,
     };
   }
+
+  static updateVideoListAction(videos) {
+    return {
+      type: 'UPDATE_VIDEO_LIST',
+      videos: videos,
+    };
+  }
 }
+
+
