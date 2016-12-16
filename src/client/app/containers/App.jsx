@@ -12,13 +12,39 @@ class App extends React.Component {
     super(props);
   }
 
-  componentDidMount () {
-    this.searchHandler('Milkshake');
-  }
-
 
   searchHandler(searchInput) {
-    this.YouTubeRequest({ key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", query: searchInput, max: 10 }, (videos) => { this.props.updateVideoList(videos) })
+    this.YouTubeRequest(
+      { key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", query: searchInput, max: 10 }, 
+      (videos) => { 
+        let promiseArray = [];
+        videos.forEach(function(video) {
+          const url ='https://www.googleapis.com/youtube/v3/videos?id='+ video.id.videoId  + '&key=AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk&part=snippet,contentDetails,statistics,status';
+          const promise = new Promise(function(resolve, reject) {
+            $.ajax({
+              url: url,
+              type: 'GET',
+              success: function(data) {
+                resolve(data.items)
+              },
+              error: function(error) {
+                reject(error)
+              }
+            });
+          })
+          promiseArray.push(promise);
+        })
+        Promise.all(promiseArray).then(function(newVideoData) {
+          for (var i = 0; i < videos.length; i++) {
+            videos[i] = newVideoData[i][0]
+          }
+        }).catch(function(err) {
+          console.log('Catch: ', err);
+        });
+        console.log('videos: ', videos)
+        this.props.updateVideoList(videos) 
+      }
+    )
   }
 
   clickHandler(event) {

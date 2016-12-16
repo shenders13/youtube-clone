@@ -22074,16 +22074,36 @@
 	  }
 	
 	  _createClass(App, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.searchHandler('Milkshake');
-	    }
-	  }, {
 	    key: 'searchHandler',
 	    value: function searchHandler(searchInput) {
 	      var _this2 = this;
 	
 	      this.YouTubeRequest({ key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", query: searchInput, max: 10 }, function (videos) {
+	        var promiseArray = [];
+	        videos.forEach(function (video) {
+	          var url = 'https://www.googleapis.com/youtube/v3/videos?id=' + video.id.videoId + '&key=AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk&part=snippet,contentDetails,statistics,status';
+	          var promise = new Promise(function (resolve, reject) {
+	            $.ajax({
+	              url: url,
+	              type: 'GET',
+	              success: function success(data) {
+	                resolve(data.items);
+	              },
+	              error: function error(_error) {
+	                reject(_error);
+	              }
+	            });
+	          });
+	          promiseArray.push(promise);
+	        });
+	        Promise.all(promiseArray).then(function (newVideoData) {
+	          for (var i = 0; i < videos.length; i++) {
+	            videos[i] = newVideoData[i][0];
+	          }
+	        }).catch(function (err) {
+	          console.log('Catch: ', err);
+	        });
+	        console.log('videos: ', videos);
 	        _this2.props.updateVideoList(videos);
 	      });
 	    }
@@ -22109,8 +22129,8 @@
 	        success: function success(data) {
 	          callback(data.items);
 	        },
-	        error: function error(_error) {
-	          console.error('ajax request didnt work: ', _error);
+	        error: function error(_error2) {
+	          console.error('ajax request didnt work: ', _error2);
 	        }
 	      });
 	    }
