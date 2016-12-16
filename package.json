@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "dev": "webpack -d --watch",
-    "start": "webpack-dev-server"
+    "dev": "webpack -d --watch"
   },
   "repository": {
     "type": "git",
