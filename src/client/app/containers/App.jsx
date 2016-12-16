@@ -21,7 +21,7 @@ class App extends React.Component {
 
   searchHandler(searchInput) {
     console.log('this.YouTubeRequest: ', this.YouTubeRequest)
-    this.YouTubeRequest({ key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", query: searchInput, max: 5 }, (videos) => { this.props.updateVideoList(videos) })
+    this.YouTubeRequest({ key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", query: searchInput, max: 10 }, (videos) => { this.props.updateVideoList(videos) })
   }
 
   clickHandler(event) {
