@@ -22093,6 +22093,11 @@
 	      });
 	    }
 	  }, {
+	    key: 'clickHandler',
+	    value: function clickHandler(event) {
+	      this.searchHandler(event.snippet.title);
+	    }
+	  }, {
 	    key: 'YouTubeRequest',
 	    value: function YouTubeRequest(options, callback) {
 	      $.ajax({
@@ -22117,7 +22122,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log('VideoPlayer: ', _VideoPlayer2.default);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -22130,7 +22134,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'col-md-5' },
-	          _react2.default.createElement(_VideoList2.default, { videos: this.props.videos })
+	          _react2.default.createElement(_VideoList2.default, { videos: this.props.videos, clickHandler: this.clickHandler.bind(this) })
 	        )
 	      );
 	    }
@@ -24849,13 +24853,17 @@
 	  return _react2.default.createElement(
 	    "div",
 	    { className: "search-bar form-inline" },
-	    _react2.default.createElement("input", { onChange: function onChange(event) {
-	        return searchHandler(event.target.value);
-	      }, className: "form-control", type: "text" }),
 	    _react2.default.createElement(
-	      "button",
-	      { className: "btn hidden-sm-down" },
-	      _react2.default.createElement("span", { className: "glyphicon glyphicon-search" })
+	      "div",
+	      null,
+	      _react2.default.createElement("input", { placeholder: "Search for videos here...", onChange: function onChange(event) {
+	          return searchHandler(event.target.value);
+	        }, className: "form-control", type: "text" }),
+	      _react2.default.createElement(
+	        "button",
+	        { className: "btn hidden-sm-down" },
+	        _react2.default.createElement("span", { className: "glyphicon glyphicon-search" })
+	      )
 	    )
 	  );
 	};
@@ -24943,19 +24951,21 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var VideoList = function VideoList(_ref) {
-	  var videos = _ref.videos;
+	  var videos = _ref.videos,
+	      clickHandler = _ref.clickHandler;
 	
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'video-list media' },
 	    videos.map(function (video) {
-	      return _react2.default.createElement(_VideoListEntry2.default, { video: video });
+	      return _react2.default.createElement(_VideoListEntry2.default, { video: video, clickHandler: clickHandler });
 	    })
 	  );
 	};
 	
 	VideoList.propTypes = {
-	  videos: _react2.default.PropTypes.array.isRequired
+	  videos: _react2.default.PropTypes.array.isRequired,
+	  clickHandler: _react2.default.PropTypes.func.isRequired
 	};
 	
 	exports.default = VideoList;
@@ -24980,7 +24990,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var VideoListEntry = function VideoListEntry(_ref) {
-	  var video = _ref.video;
+	  var video = _ref.video,
+	      clickHandler = _ref.clickHandler;
 	
 	  return _react2.default.createElement(
 	    "div",
@@ -24996,7 +25007,7 @@
 	      _react2.default.createElement(
 	        "div",
 	        { className: "video-list-entry-title", onClick: function onClick() {
-	            props.handler(video);
+	            clickHandler(video);
 	          } },
 	        video.snippet.title
 	      ),

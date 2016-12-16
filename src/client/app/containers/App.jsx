@@ -24,6 +24,10 @@ class App extends React.Component {
     this.YouTubeRequest({ key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", query: searchInput, max: 5 }, (videos) => { this.props.updateVideoList(videos) })
   }
 
+  clickHandler(event) {
+    this.searchHandler(event.snippet.title)
+  }
+
   YouTubeRequest(options, callback) {
     $.ajax({
       url: 'https://www.googleapis.com/youtube/v3/search',
@@ -46,7 +50,6 @@ class App extends React.Component {
   }
 
   render () {
-    console.log('VideoPlayer: ', VideoPlayer)
     return (
       <div>
         <Search searchHandler={this.searchHandler.bind(this)}/>
@@ -54,14 +57,12 @@ class App extends React.Component {
            <VideoPlayer video={this.props.videos[0]}/>
          </div>
          <div className="col-md-5">
-           <VideoList videos={this.props.videos} />
+           <VideoList videos={this.props.videos} clickHandler={this.clickHandler.bind(this)}/>
          </div>
       </div>
     );
   }
 }
-
-
 
 
 

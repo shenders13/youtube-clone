@@ -17,6 +17,10 @@ body {
 .search-bar {
   border-radius: 1px;
   background: #fff;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 .search-bar .form-control {
@@ -29,6 +33,7 @@ body {
   background: #f8f8f8;
   width: 20%;
   margin-left: -1px;
+  height: 34px;
 }
 
 .search-bar .btn:hover {
@@ -69,4 +74,4 @@ body {
 .video-list-entry-detail {
   font-size: 12px;
   color: #999;
-}
+} 
