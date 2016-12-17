@@ -12,6 +12,9 @@ class App extends React.Component {
     super(props);
   }
 
+  componentWillMount() {
+    this.searchHandler('David Attenborough Planet Earth')
+  }
 
   searchHandler(searchInput) {
     const context = this;
@@ -74,17 +77,23 @@ class App extends React.Component {
   }
 
   render () {
+    if (this.props.videos) {
+      return (
+        <div>
+          <Search searchHandler={this.searchHandler.bind(this)}/>
+           <div className="col-md-7">
+             <VideoPlayer video={this.props.videos[0]}/>
+           </div>
+           <div className="col-md-5">
+             <VideoList videos={this.props.videos} clickHandler={this.clickHandler.bind(this)}/>
+           </div>
+        </div>
+      );
+    }
     return (
       <div>
-        <Search searchHandler={this.searchHandler.bind(this)}/>
-         <div className="col-md-7">
-           <VideoPlayer video={this.props.videos[0]}/>
-         </div>
-         <div className="col-md-5">
-           <VideoList videos={this.props.videos} clickHandler={this.clickHandler.bind(this)}/>
-         </div>
       </div>
-    );
+    )
   }
 }
 

@@ -83,3 +83,27 @@ div.video-list.media {
   font-size: 12px;
   color: #999;
 } 
+
+.video-list-entry-views {
+  padding: 3px 0px 6px;
+  color: #9a9a9a;
+  font-size: 10px;
+}
+
+.video-list-entry-views-player {
+  padding: 3px 0px 6px;
+  color: #9a9a9a;
+  font-size: 11px;
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+
+
+.video-icon {
+  margin-right: 5px;
+}
+
+.left-pad {
+  margin-left: 5px;
+}

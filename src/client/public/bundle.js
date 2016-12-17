@@ -22074,6 +22074,11 @@
 	  }
 	
 	  _createClass(App, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.searchHandler('David Attenborough Planet Earth');
+	    }
+	  }, {
 	    key: 'searchHandler',
 	    value: function searchHandler(searchInput) {
 	      var context = this;
@@ -22135,21 +22140,24 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(_Search2.default, { searchHandler: this.searchHandler.bind(this) }),
-	        _react2.default.createElement(
+	      if (this.props.videos) {
+	        return _react2.default.createElement(
 	          'div',
-	          { className: 'col-md-7' },
-	          _react2.default.createElement(_VideoPlayer2.default, { video: this.props.videos[0] })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'col-md-5' },
-	          _react2.default.createElement(_VideoList2.default, { videos: this.props.videos, clickHandler: this.clickHandler.bind(this) })
-	        )
-	      );
+	          null,
+	          _react2.default.createElement(_Search2.default, { searchHandler: this.searchHandler.bind(this) }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-md-7' },
+	            _react2.default.createElement(_VideoPlayer2.default, { video: this.props.videos[0] })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-md-5' },
+	            _react2.default.createElement(_VideoList2.default, { videos: this.props.videos, clickHandler: this.clickHandler.bind(this) })
+	          )
+	        );
+	      }
+	      return _react2.default.createElement('div', null);
 	    }
 	  }]);
 	
@@ -42334,7 +42342,7 @@
   \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -42346,28 +42354,47 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function numberWithCommas(x) {
+	  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	
 	var VideoPlayer = function VideoPlayer(_ref) {
 	  var video = _ref.video;
 	
-	  console.log('url: ', 'https://www.youtube.com/embed/' + video.id);
+	
 	  return _react2.default.createElement(
-	    'div',
-	    { className: 'video-player' },
+	    "div",
+	    { className: "video-player" },
 	    _react2.default.createElement(
-	      'div',
-	      { className: 'embed-responsive embed-responsive-16by9' },
-	      _react2.default.createElement('iframe', { className: 'embed-responsive-item', src: 'https://www.youtube.com/embed/' + video.id, allowFullScreen: true })
+	      "div",
+	      { className: "embed-responsive embed-responsive-16by9" },
+	      _react2.default.createElement("iframe", { className: "embed-responsive-item", src: 'https://www.youtube.com/embed/' + video.id, allowFullScreen: true })
 	    ),
 	    _react2.default.createElement(
-	      'div',
-	      { className: 'video-player-details' },
+	      "div",
+	      { className: "video-player-details" },
 	      _react2.default.createElement(
-	        'h3',
+	        "h3",
 	        null,
 	        video.snippet.title
 	      ),
 	      _react2.default.createElement(
-	        'div',
+	        "div",
+	        { className: "video-list-entry-views-player" },
+	        _react2.default.createElement("span", { className: "glyphicon glyphicon-eye-open player-stats" }),
+	        " ",
+	        numberWithCommas(video.statistics.viewCount),
+	        " views",
+	        _react2.default.createElement("span", { className: "glyphicon glyphicon-user player-stats left-pad" }),
+	        " ",
+	        video.snippet.channelTitle,
+	        _react2.default.createElement("span", { className: "glyphicon glyphicon-thumbs-up player-stats left-pad" }),
+	        " ",
+	        numberWithCommas(video.statistics.likeCount),
+	        " upvotes"
+	      ),
+	      _react2.default.createElement(
+	        "div",
 	        null,
 	        video.snippet.description
 	      )
@@ -42431,7 +42458,7 @@
   \******************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -42441,38 +42468,60 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 235);
+	
+	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function numberWithCommas(x) {
+	  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 	
 	var VideoListEntry = function VideoListEntry(_ref) {
 	  var video = _ref.video,
 	      clickHandler = _ref.clickHandler;
 	
-	  // console.log('video: ', video)
+	
 	  return _react2.default.createElement(
-	    "div",
-	    { className: "video-list-entry", onClick: function onClick() {
+	    'div',
+	    { className: 'video-list-entry', onClick: function onClick() {
 	        clickHandler(video);
 	      } },
 	    _react2.default.createElement(
-	      "div",
-	      { className: "media-left media-middle" },
-	      _react2.default.createElement("img", { className: "media-object", src: video.snippet.thumbnails.default.url, alt: "" })
+	      'div',
+	      { className: 'media-left media-middle' },
+	      _react2.default.createElement('img', { className: 'media-object', src: video.snippet.thumbnails.default.url, alt: '' })
 	    ),
 	    _react2.default.createElement(
-	      "div",
-	      { className: "media-body" },
+	      'div',
+	      { className: 'media-body' },
 	      _react2.default.createElement(
-	        "div",
-	        { className: "video-list-entry-title" },
+	        'div',
+	        { className: 'video-list-entry-title' },
 	        video.snippet.title
 	      ),
 	      _react2.default.createElement(
-	        "div",
-	        { className: "video-list-entry-detail" },
+	        'div',
+	        { className: 'video-list-entry-views' },
+	        _react2.default.createElement('span', { className: 'glyphicon glyphicon-eye-open video-icon' }),
+	        numberWithCommas(video.statistics.viewCount),
+	        ' views',
+	        _react2.default.createElement('span', { className: 'glyphicon glyphicon-user left-pad' }),
+	        ' ',
+	        video.snippet.channelTitle,
+	        _react2.default.createElement('span', { className: 'glyphicon glyphicon-thumbs-up left-pad' }),
+	        ' ',
+	        numberWithCommas(video.statistics.likeCount),
+	        ' upvotes'
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'video-list-entry-detail' },
 	        video.snippet.description.substring(0, 200)
 	      )
 	    ),
-	    _react2.default.createElement("hr", null)
+	    _react2.default.createElement('hr', null)
 	  );
 	};
 	
@@ -42522,168 +42571,7 @@
 	  value: true
 	});
 	var initialState = {
-	  text: 'text from redux store',
-	  videos: [{
-	    kind: 'youtube#searchResult',
-	    etag: 'abQHWywil_AkNqdqji7_FqiK-u4/Ykxo_CqKu8F8kcm-iNgL332gQTY',
-	    id: {
-	      kind: 'youtube#video',
-	      videoId: '4ZAEBxGipoA'
-	    },
-	    snippet: {
-	      publishedAt: '2015-08-02T20:52:58.000Z',
-	      channelId: 'UCJbPGzawDH1njbqV-D5HqKw',
-	      title: 'React JS Tutorial for Beginners - 1 - Introduction',
-	      description: 'My website - https://www.thenewboston.com/videos.php Have questions about the tutorial or React? Ask them here ...',
-	      thumbnails: {
-	        default: {
-	          url: 'https://i.ytimg.com/vi/4ZAEBxGipoA/default.jpg',
-	          width: 120,
-	          height: 90
-	        },
-	        medium: {
-	          url: 'https://i.ytimg.com/vi/4ZAEBxGipoA/mqdefault.jpg',
-	          width: 320,
-	          height: 180
-	        },
-	        high: {
-	          url: 'https://i.ytimg.com/vi/4ZAEBxGipoA/hqdefault.jpg',
-	          width: 480,
-	          height: 360
-	        }
-	      },
-	      channelTitle: 'thenewboston',
-	      liveBroadcastContent: 'none'
-	    }
-	  }, {
-	    kind: 'youtube#searchResult',
-	    etag: 'abQHWywil_AkNqdqji7_FqiK-u4/tS3xe6KXEJbntCAmn01SmEuSYxg',
-	    id: {
-	      kind: 'youtube#video',
-	      videoId: 'mFEoarLnnqM'
-	    },
-	    snippet: {
-	      publishedAt: '2014-08-08T21:31:58.000Z',
-	      channelId: 'UCKKQaFUwyPb6iC-42rFRz2Q',
-	      title: 'Thinking in React, a step by step screencast tutorial',
-	      description: 'A step by step video tutorial that takes you through the correct way of coding Facebook React views. Check out the rest of the tagtree library: http://tagtree.tv.',
-	      thumbnails: {
-	        default: {
-	          url: 'https://i.ytimg.com/vi/mFEoarLnnqM/default.jpg',
-	          width: 120,
-	          height: 90
-	        },
-	        medium: {
-	          url: 'https://i.ytimg.com/vi/mFEoarLnnqM/mqdefault.jpg',
-	          width: 320,
-	          height: 180
-	        },
-	        high: {
-	          url: 'https://i.ytimg.com/vi/mFEoarLnnqM/hqdefault.jpg',
-	          width: 480,
-	          height: 360
-	        }
-	      },
-	      channelTitle: '',
-	      liveBroadcastContent: 'none'
-	    }
-	  }, {
-	    kind: 'youtube#searchResult',
-	    etag: 'abQHWywil_AkNqdqji7_FqiK-u4/FZYrgJg7qfkv0yfImJPujBKBmLk',
-	    id: {
-	      kind: 'youtube#video',
-	      videoId: '0ByoQm-vnYw'
-	    },
-	    snippet: {
-	      publishedAt: '2015-12-08T20:51:18.000Z',
-	      channelId: 'UClLXKYEEM8OBBx85DOa6-cg',
-	      title: 'React Tutorial for Beginners',
-	      description: 'Get the full course here: http://devslopes.com/react In this video you will learn how to setup your project for React development and you will build a simple React ...',
-	      thumbnails: {
-	        default: {
-	          url: 'https://i.ytimg.com/vi/0ByoQm-vnYw/default.jpg',
-	          width: 120,
-	          height: 90
-	        },
-	        medium: {
-	          url: 'https://i.ytimg.com/vi/0ByoQm-vnYw/mqdefault.jpg',
-	          width: 320,
-	          height: 180
-	        },
-	        high: {
-	          url: 'https://i.ytimg.com/vi/0ByoQm-vnYw/hqdefault.jpg',
-	          width: 480,
-	          height: 360
-	        }
-	      },
-	      channelTitle: '',
-	      liveBroadcastContent: 'none'
-	    }
-	  }, {
-	    kind: 'youtube#searchResult',
-	    etag: 'abQHWywil_AkNqdqji7_FqiK-u4/nSaavPWVkTWpn2p-ClwNj7xszf8',
-	    id: {
-	      kind: 'youtube#video',
-	      videoId: 'o5E894TmHJg'
-	    },
-	    snippet: {
-	      publishedAt: '2015-03-09T08:19:59.000Z',
-	      channelId: 'UCMYct3vtNaMwZAA3_DNsWMw',
-	      title: 'Flux Tutorial - Writing a Simple App in Flux and React',
-	      description: 'Hey! Write something in the comments, even if it\'s critical. I\'d love to hear feedback! (also, please thumbs-up if you like the vid, and I\'ll make more). Personally I ...',
-	      thumbnails: {
-	        default: {
-	          url: 'https://i.ytimg.com/vi/o5E894TmHJg/default.jpg',
-	          width: 120,
-	          height: 90
-	        },
-	        medium: {
-	          url: 'https://i.ytimg.com/vi/o5E894TmHJg/mqdefault.jpg',
-	          width: 320,
-	          height: 180
-	        },
-	        high: {
-	          url: 'https://i.ytimg.com/vi/o5E894TmHJg/hqdefault.jpg',
-	          width: 480,
-	          height: 360
-	        }
-	      },
-	      channelTitle: 'bengrunfeld',
-	      liveBroadcastContent: 'none'
-	    }
-	  }, {
-	    kind: 'youtube#searchResult',
-	    etag: 'abQHWywil_AkNqdqji7_FqiK-u4/3E7u1VZ18KYyfLIA6RgI2w-7nRI',
-	    id: {
-	      kind: 'youtube#video',
-	      videoId: 'Pd6Ub7Ju2RM'
-	    },
-	    snippet: {
-	      publishedAt: '2015-02-13T18:50:38.000Z',
-	      channelId: 'UCr5lOCcjZzNprLrhxO0WZQw',
-	      title: 'Learn React, Flux, and Flow: Part I',
-	      description: 'Brought to you by Formidable Labs and SeattleJS, Colin Megill walks us through Facebook\'s React framework in part one of this three-part series. The workshop ...',
-	      thumbnails: {
-	        default: {
-	          url: 'https://i.ytimg.com/vi/Pd6Ub7Ju2RM/default.jpg',
-	          width: 120,
-	          height: 90
-	        },
-	        medium: {
-	          url: 'https://i.ytimg.com/vi/Pd6Ub7Ju2RM/mqdefault.jpg',
-	          width: 320,
-	          height: 180
-	        },
-	        high: {
-	          url: 'https://i.ytimg.com/vi/Pd6Ub7Ju2RM/hqdefault.jpg',
-	          width: 480,
-	          height: 360
-	        }
-	      },
-	      channelTitle: '',
-	      liveBroadcastContent: 'none'
-	    }
-	  }]
+	  text: 'text from redux store'
 	};
 	
 	var exampleReducer = function exampleReducer() {
@@ -42705,6 +42593,154 @@
 	};
 	
 	exports.default = exampleReducer;
+
+/***/ },
+/* 235 */
+/*!******************************************!*\
+  !*** ./~/react-fontawesome/lib/index.js ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _screenReaderStyles = __webpack_require__(/*! ./screen-reader-styles */ 236);
+	
+	var _screenReaderStyles2 = _interopRequireDefault(_screenReaderStyles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	/**
+	 * A React component for the font-awesome icon library.
+	 *
+	 *
+	 * @param {String} [ariaLabel] An extra accessibility label to put on the icon
+	 * @param {Boolean} [border=false] Whether or not to show a border radius
+	 * @param {String} [className] An extra set of CSS classes to add to the component
+	 * @param {Object} [cssModule] Option to pass FontAwesome CSS as a module
+	 * @param {Boolean} [fixedWidth=false] Make buttons fixed width
+	 * @param {String} [flip=false] Flip the icon's orientation.
+	 * @param {Boolean} [inverse=false]Inverse the icon's color
+	 * @param {String} name Name of the icon to use
+	 * @param {Boolean} [pulse=false] Rotate icon with 8 steps (rather than smoothly)
+	 * @param {Number} [rotate] The degress to rotate the icon by
+	 * @param {String} [size] The icon scaling size
+	 * @param {Boolean} [spin=false] Spin the icon
+	 * @param {String} [stack] Stack an icon on top of another
+	 * @param {String} [tag=span] The HTML tag to use as a string (eg 'i' or 'em')
+	 * @module FontAwesome
+	 * @type {ReactClass}
+	 */
+	exports.default = _react2.default.createClass({
+	
+	  displayName: 'FontAwesome',
+	
+	  propTypes: {
+	    ariaLabel: _react2.default.PropTypes.string,
+	    border: _react2.default.PropTypes.bool,
+	    className: _react2.default.PropTypes.string,
+	    cssModule: _react2.default.PropTypes.object,
+	    fixedWidth: _react2.default.PropTypes.bool,
+	    flip: _react2.default.PropTypes.oneOf(['horizontal', 'vertical']),
+	    inverse: _react2.default.PropTypes.bool,
+	    name: _react2.default.PropTypes.string.isRequired,
+	    pulse: _react2.default.PropTypes.bool,
+	    rotate: _react2.default.PropTypes.oneOf([90, 180, 270]),
+	    size: _react2.default.PropTypes.oneOf(['lg', '2x', '3x', '4x', '5x']),
+	    spin: _react2.default.PropTypes.bool,
+	    stack: _react2.default.PropTypes.oneOf(['1x', '2x']),
+	    tag: _react2.default.PropTypes.string
+	  },
+	
+	  render: function render() {
+	    var _props = this.props;
+	    var border = _props.border;
+	    var cssModule = _props.cssModule;
+	    var className = _props.className;
+	    var fixedWidth = _props.fixedWidth;
+	    var flip = _props.flip;
+	    var inverse = _props.inverse;
+	    var name = _props.name;
+	    var pulse = _props.pulse;
+	    var rotate = _props.rotate;
+	    var size = _props.size;
+	    var spin = _props.spin;
+	    var stack = _props.stack;
+	    var _props$tag = _props.tag;
+	    var tag = _props$tag === undefined ? 'span' : _props$tag;
+	    var ariaLabel = _props.ariaLabel;
+	
+	    var props = _objectWithoutProperties(_props, ['border', 'cssModule', 'className', 'fixedWidth', 'flip', 'inverse', 'name', 'pulse', 'rotate', 'size', 'spin', 'stack', 'tag', 'ariaLabel']);
+	
+	    var classNames = [];
+	
+	    if (cssModule) {
+	      classNames.push(cssModule['fa']);
+	      classNames.push(cssModule['fa-' + name]);
+	      size && classNames.push(cssModule['fa-' + size]);
+	      spin && classNames.push(cssModule['fa-spin']);
+	      pulse && classNames.push(cssModule['fa-pulse']);
+	      border && classNames.push(cssModule['fa-border']);
+	      fixedWidth && classNames.push(cssModule['fa-fw']);
+	      inverse && classNames.push(cssModule['fa-inverse']);
+	      flip && classNames.push(cssModule['fa-flip-' + flip]);
+	      rotate && classNames.push(cssModule['fa-rotate-' + rotate]);
+	      stack && classNames.push(cssModule['fa-stack-' + stack]);
+	    } else {
+	      classNames.push('fa');
+	      classNames.push('fa-' + name);
+	      size && classNames.push('fa-' + size);
+	      spin && classNames.push('fa-spin');
+	      pulse && classNames.push('fa-pulse');
+	      border && classNames.push('fa-border');
+	      fixedWidth && classNames.push('fa-fw');
+	      inverse && classNames.push('fa-inverse');
+	      flip && classNames.push('fa-flip-' + flip);
+	      rotate && classNames.push('fa-rotate-' + rotate);
+	      stack && classNames.push('fa-stack-' + stack);
+	    }
+	
+	    // Add any custom class names at the end.
+	    className && classNames.push(className);
+	    return _react2.default.createElement(tag, _extends({}, props, { 'aria-hidden': true, className: classNames.join(' ') }), ariaLabel ? _react2.default.createElement('span', { style: _screenReaderStyles2.default }, ariaLabel) : null);
+	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 236 */
+/*!*********************************************************!*\
+  !*** ./~/react-fontawesome/lib/screen-reader-styles.js ***!
+  \*********************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  position: 'absolute',
+	  width: '1px',
+	  height: '1px',
+	  padding: '0px',
+	  margin: '-1px',
+	  overflow: 'hidden',
+	  clip: 'rect(0px, 0px, 0px, 0px)',
+	  border: '0px'
+	};
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);

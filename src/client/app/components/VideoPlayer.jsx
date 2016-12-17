@@ -1,7 +1,11 @@
 import React from 'react'
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 const VideoPlayer = ({ video }) => {
-  console.log('url: ', 'https://www.youtube.com/embed/' + video.id)
+
   return (
   <div className="video-player">
     <div className="embed-responsive embed-responsive-16by9">
@@ -9,6 +13,11 @@ const VideoPlayer = ({ video }) => {
     </div>
     <div className="video-player-details">
       <h3>{video.snippet.title}</h3>
+      <div className="video-list-entry-views-player">
+          <span className="glyphicon glyphicon-eye-open player-stats"></span> {numberWithCommas(video.statistics.viewCount)} views  
+          <span className="glyphicon glyphicon-user player-stats left-pad"></span> {video.snippet.channelTitle}  
+          <span className="glyphicon glyphicon-thumbs-up player-stats left-pad"></span> {numberWithCommas(video.statistics.likeCount)} upvotes
+      </div>
       <div>{video.snippet.description}</div>
     </div>
   </div>
