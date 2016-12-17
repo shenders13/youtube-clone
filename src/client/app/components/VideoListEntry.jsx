@@ -9,8 +9,9 @@ const VideoListEntry = ({ video, clickHandler }) => {
       </div>
       <div className="media-body">
         <div className="video-list-entry-title">{video.snippet.title}</div>
-        <div className="video-list-entry-detail">{video.snippet.description}</div>
+        <div className="video-list-entry-detail">{video.snippet.description.substring(0,200)}</div>
       </div>
+      <hr />
     </div>
   );
 };

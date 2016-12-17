@@ -42349,14 +42349,14 @@
 	var VideoPlayer = function VideoPlayer(_ref) {
 	  var video = _ref.video;
 	
-	  console.log('video: ', video);
+	  console.log('url: ', 'https://www.youtube.com/embed/' + video.id);
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'video-player' },
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'embed-responsive embed-responsive-16by9' },
-	      _react2.default.createElement('iframe', { className: 'embed-responsive-item', src: 'https://www.youtube.com/embed/' + video.id.videoId, allowFullScreen: true })
+	      _react2.default.createElement('iframe', { className: 'embed-responsive-item', src: 'https://www.youtube.com/embed/' + video.id, allowFullScreen: true })
 	    ),
 	    _react2.default.createElement(
 	      'div',
@@ -42469,9 +42469,10 @@
 	      _react2.default.createElement(
 	        "div",
 	        { className: "video-list-entry-detail" },
-	        video.snippet.description
+	        video.snippet.description.substring(0, 200)
 	      )
-	    )
+	    ),
+	    _react2.default.createElement("hr", null)
 	  );
 	};
 	

@@ -1,11 +1,11 @@
 import React from 'react'
 
 const VideoPlayer = ({ video }) => {
-  console.log('video: ', video)
+  console.log('url: ', 'https://www.youtube.com/embed/' + video.id)
   return (
   <div className="video-player">
     <div className="embed-responsive embed-responsive-16by9">
-      <iframe className="embed-responsive-item" src={'https://www.youtube.com/embed/' + video.id.videoId} allowFullScreen></iframe>
+      <iframe className="embed-responsive-item" src={'https://www.youtube.com/embed/' + video.id} allowFullScreen></iframe>
     </div>
     <div className="video-player-details">
       <h3>{video.snippet.title}</h3>
