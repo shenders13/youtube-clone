@@ -1,6 +1,7 @@
 import React from 'react'
 
 const VideoListEntry = ({ video, clickHandler }) => {
+  // console.log('video: ', video)
   return (
     <div className="video-list-entry" onClick={function() { clickHandler(video); }}>
       <div className="media-left media-middle">

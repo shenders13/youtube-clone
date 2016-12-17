@@ -14,6 +14,7 @@ class App extends React.Component {
 
 
   searchHandler(searchInput) {
+    const context = this;
     this.YouTubeRequest(
       { key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", query: searchInput, max: 10 }, 
       (videos) => { 
@@ -38,11 +39,11 @@ class App extends React.Component {
           for (var i = 0; i < videos.length; i++) {
             videos[i] = newVideoData[i][0]
           }
-        }).catch(function(err) {
+          context.props.updateVideoList(videos) 
+        })
+        .catch(function(err) {
           console.log('Catch: ', err);
         });
-        console.log('videos: ', videos)
-        this.props.updateVideoList(videos) 
       }
     )
   }

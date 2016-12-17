@@ -1,6 +1,7 @@
 import React from 'react'
 
 const VideoPlayer = ({ video }) => {
+  console.log('video: ', video)
   return (
   <div className="video-player">
     <div className="embed-responsive embed-responsive-16by9">

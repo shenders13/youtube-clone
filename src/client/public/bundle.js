@@ -22076,8 +22076,7 @@
 	  _createClass(App, [{
 	    key: 'searchHandler',
 	    value: function searchHandler(searchInput) {
-	      var _this2 = this;
-	
+	      var context = this;
 	      this.YouTubeRequest({ key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", query: searchInput, max: 10 }, function (videos) {
 	        var promiseArray = [];
 	        videos.forEach(function (video) {
@@ -22100,11 +22099,10 @@
 	          for (var i = 0; i < videos.length; i++) {
 	            videos[i] = newVideoData[i][0];
 	          }
+	          context.props.updateVideoList(videos);
 	        }).catch(function (err) {
 	          console.log('Catch: ', err);
 	        });
-	        console.log('videos: ', videos);
-	        _this2.props.updateVideoList(videos);
 	      });
 	    }
 	  }, {
@@ -42336,7 +42334,7 @@
   \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -42351,24 +42349,25 @@
 	var VideoPlayer = function VideoPlayer(_ref) {
 	  var video = _ref.video;
 	
+	  console.log('video: ', video);
 	  return _react2.default.createElement(
-	    "div",
-	    { className: "video-player" },
+	    'div',
+	    { className: 'video-player' },
 	    _react2.default.createElement(
-	      "div",
-	      { className: "embed-responsive embed-responsive-16by9" },
-	      _react2.default.createElement("iframe", { className: "embed-responsive-item", src: 'https://www.youtube.com/embed/' + video.id.videoId, allowFullScreen: true })
+	      'div',
+	      { className: 'embed-responsive embed-responsive-16by9' },
+	      _react2.default.createElement('iframe', { className: 'embed-responsive-item', src: 'https://www.youtube.com/embed/' + video.id.videoId, allowFullScreen: true })
 	    ),
 	    _react2.default.createElement(
-	      "div",
-	      { className: "video-player-details" },
+	      'div',
+	      { className: 'video-player-details' },
 	      _react2.default.createElement(
-	        "h3",
+	        'h3',
 	        null,
 	        video.snippet.title
 	      ),
 	      _react2.default.createElement(
-	        "div",
+	        'div',
 	        null,
 	        video.snippet.description
 	      )
@@ -42448,6 +42447,7 @@
 	  var video = _ref.video,
 	      clickHandler = _ref.clickHandler;
 	
+	  // console.log('video: ', video)
 	  return _react2.default.createElement(
 	    "div",
 	    { className: "video-list-entry", onClick: function onClick() {
