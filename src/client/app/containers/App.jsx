@@ -93,16 +93,21 @@ class App extends React.Component {
   render () {
     console.log('this.props: ', this.props)
     if (this.props.videos) {
+      const searchModeClass = this.props.searchMode ? "toggle-button-selected" : "toggle-button"
+      const favouriteModeClass = this.props.searchMode ? "toggle-button" : "toggle-button-selected"
+      console.log('searchModeClass: ', searchModeClass)
+      console.log('favouriteModeClass: ', favouriteModeClass)
+
       return (
         <div>
           <div className="col-md-7">
             <Search searchHandler={this.searchHandler.bind(this)}/>
           </div>
           <div className="col-md-5">
-            <button className="toggle-button" onClick={() => (this.toggleSearchModeHelper('search'))}>
+            <button className={searchModeClass} onClick={() => (this.toggleSearchModeHelper('search'))}>
               <span className="glyphicon glyphicon-search"></span> Search Mode
             </button>
-            <button className="toggle-button" onClick={() => (this.toggleSearchModeHelper('favourites'))}>
+            <button className={favouriteModeClass} onClick={() => (this.toggleSearchModeHelper('favourites'))}>
               <span className="glyphicon glyphicon-star"></span> Favourites Mode
             </button>
           </div>

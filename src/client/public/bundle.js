@@ -22160,6 +22160,11 @@
 	
 	      console.log('this.props: ', this.props);
 	      if (this.props.videos) {
+	        var searchModeClass = this.props.searchMode ? "toggle-button-selected" : "toggle-button";
+	        var favouriteModeClass = this.props.searchMode ? "toggle-button" : "toggle-button-selected";
+	        console.log('searchModeClass: ', searchModeClass);
+	        console.log('favouriteModeClass: ', favouriteModeClass);
+	
 	        return _react2.default.createElement(
 	          'div',
 	          null,
@@ -22173,7 +22178,7 @@
 	            { className: 'col-md-5' },
 	            _react2.default.createElement(
 	              'button',
-	              { className: 'toggle-button', onClick: function onClick() {
+	              { className: searchModeClass, onClick: function onClick() {
 	                  return _this2.toggleSearchModeHelper('search');
 	                } },
 	              _react2.default.createElement('span', { className: 'glyphicon glyphicon-search' }),
@@ -22181,7 +22186,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'button',
-	              { className: 'toggle-button', onClick: function onClick() {
+	              { className: favouriteModeClass, onClick: function onClick() {
 	                  return _this2.toggleSearchModeHelper('favourites');
 	                } },
 	              _react2.default.createElement('span', { className: 'glyphicon glyphicon-star' }),
