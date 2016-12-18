@@ -22,14 +22,12 @@ const exampleReducer = (state = initialState, action) => {
         searchMode: state.searchMode,
       };
     case 'TOGGLE_SEARCH_MODE_ON':
-    console.log('action: ', action)
       return {
         favourites: state.favourites,
         videos: state.videos,
         searchMode: true,
       };
     case 'TOGGLE_SEARCH_MODE_OFF':
-    console.log('action: ', action)
       return {
         favourites: state.favourites,
         videos: state.videos,

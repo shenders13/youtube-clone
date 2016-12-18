@@ -1,5 +1,5 @@
-import React from 'react'
-import VideoListEntry from './VideoListEntry.jsx'
+import React from 'react';
+import VideoListEntry from './VideoListEntry.jsx';
 
 const VideoList = ({ videos, clickHandler }) => {
   return (

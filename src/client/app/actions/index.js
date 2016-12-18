@@ -19,8 +19,6 @@ export default class Actions {
   }
   static toggleSearchModeAction(toggleType) {
     if (toggleType === 'search') {
-      console.log('action toggleType: ', toggleType)
-      console.log('inside if statement that thinks it a search ON')
       return {
         type: 'TOGGLE_SEARCH_MODE_ON',
       };

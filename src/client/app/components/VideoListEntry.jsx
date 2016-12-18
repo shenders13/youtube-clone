@@ -1,9 +1,7 @@
-import React from 'react'
-import FontAwesome from 'react-fontawesome'
-import { numberWithCommas } from './helperfunctions'
+import React from 'react';
+import { numberWithCommas } from './helperfunctions';
 
 const VideoListEntry = ({ video, clickHandler }) => {
-
   return (
     <div className="video-list-entry" onClick={function() { clickHandler(video); }}>
       <div className="media-left media-middle">

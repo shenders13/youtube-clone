@@ -1,10 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { connect } from 'react-redux';
-import Search from '../components/Search.jsx'
-import ExampleComponent from '../components/ExampleComponent.jsx'
-import Actions from '../actions/index'
-import VideoPlayer from '../components/VideoPlayer.jsx'
-import VideoList from '../components/VideoList.jsx'
+import Search from '../components/Search.jsx';
+import Actions from '../actions/index';
+import VideoPlayer from '../components/VideoPlayer.jsx';
+import VideoList from '../components/VideoList.jsx';
 
 class App extends React.Component {
 
@@ -13,13 +12,13 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.searchHandler('David Attenborough Planet Earth')
+    this.searchHandler('David Attenborough Planet Earth');
   }
 
   searchHandler(searchInput) {
     const context = this;
     this.YouTubeRequest(
-      { key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", query: searchInput, max: 10 }, 
+      { key: 'AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk', query: searchInput, max: 10 }, 
       (videos) => { 
         let promiseArray = [];
         videos.forEach(function(video) {
@@ -29,30 +28,30 @@ class App extends React.Component {
               url: url,
               type: 'GET',
               success: function(data) {
-                resolve(data.items)
+                resolve(data.items);
               },
               error: function(error) {
-                reject(error)
+                reject(error);
               }
             });
-          })
+          });
           promiseArray.push(promise);
-        })
+        });
         Promise.all(promiseArray).then(function(newVideoData) {
           for (var i = 0; i < videos.length; i++) {
-            videos[i] = newVideoData[i][0]
+            videos[i] = newVideoData[i][0];
           }
-          context.props.updateVideoList(videos) 
+          context.props.updateVideoList(videos);
         })
         .catch(function(err) {
           console.log('Catch: ', err);
         });
       }
-    )
+    );
   }
 
   clickHandler(event) {
-    this.searchHandler(event.snippet.title)
+    this.searchHandler(event.snippet.title);
   }
 
   favouritesHandler(video) {
@@ -60,13 +59,13 @@ class App extends React.Component {
       var videos = this.props.favourites;
       videos.push(video);
     } else {
-      var videos = [video]
+      var videos = [video];
     }
-    this.props.updatefavourites(videos)
+    this.props.updatefavourites(videos);
   }
 
   toggleSearchModeHelper(toggleType) {
-      this.props.toggleSearchMode(toggleType)      
+      this.props.toggleSearchMode(toggleType);
   }
 
   YouTubeRequest(options, callback) {
@@ -91,30 +90,26 @@ class App extends React.Component {
   }
 
   render () {
-    console.log('this.props: ', this.props)
     if (this.props.videos) {
-      const searchModeClass = this.props.searchMode ? "toggle-button-selected" : "toggle-button"
-      const favouriteModeClass = this.props.searchMode ? "toggle-button" : "toggle-button-selected"
-      console.log('searchModeClass: ', searchModeClass)
-      console.log('favouriteModeClass: ', favouriteModeClass)
-
+      const searchModeClass = this.props.searchMode ? 'toggle-button-selected' : 'toggle-button';
+      const favouriteModeClass = this.props.searchMode ? 'toggle-button' : 'toggle-button-selected';
       return (
         <div>
-          <div className="col-md-7">
+          <div className='col-md-7'>
             <Search searchHandler={this.searchHandler.bind(this)}/>
           </div>
-          <div className="col-md-5">
+          <div className='col-md-5'>
             <button className={searchModeClass} onClick={() => (this.toggleSearchModeHelper('search'))}>
-              <span className="glyphicon glyphicon-search"></span> Search Mode
+              <span className='glyphicon glyphicon-search'></span> Search Mode
             </button>
             <button className={favouriteModeClass} onClick={() => (this.toggleSearchModeHelper('favourites'))}>
-              <span className="glyphicon glyphicon-star"></span> Favourites Mode
+              <span className='glyphicon glyphicon-star'></span> Favourites Mode
             </button>
           </div>
-           <div className="col-md-7">
+           <div className='col-md-7'>
              <VideoPlayer video={this.props.videos[0]} favouritesHandler={this.favouritesHandler.bind(this)}/>
            </div>
-           <div className="col-md-5">
+           <div className='col-md-5'>
              <VideoList videos={this.props.searchMode ? this.props.videos : this.props.favourites} clickHandler={this.clickHandler.bind(this)}/>
            </div>
         </div>
@@ -123,7 +118,7 @@ class App extends React.Component {
     return (
       <div>
       </div>
-    )
+    );
   }
 }
 
@@ -137,23 +132,22 @@ const mapStateToProps = (state) => {
   return props;
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     updateText: () => {
-      dispatch(Actions.exampleAction({text: "STORE UPDATED!"}))
+      dispatch(Actions.exampleAction({text: 'STORE UPDATED!'}));
     },
     updateVideoList: (videos) => {
-      dispatch(Actions.updateVideoListAction(videos))
+      dispatch(Actions.updateVideoListAction(videos));
     },
     updatefavourites: (videos) => {
-      dispatch(Actions.updateFavouritesAction(videos))
+      dispatch(Actions.updateFavouritesAction(videos));
     },
     toggleSearchMode: (toggleType) => {
-      console.log('toggleSearchMode toggleType: ', toggleType)
-      dispatch(Actions.toggleSearchModeAction(toggleType))
+      dispatch(Actions.toggleSearchModeAction(toggleType));
     }
-  }
-}
+  };
+};
 
 const AppConnected = connect(
   mapStateToProps,

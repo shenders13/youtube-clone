@@ -49,10 +49,6 @@
 
 	'use strict';
 	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
 	var _reactDom = __webpack_require__(/*! react-dom */ 32);
 	
 	var _App = __webpack_require__(/*! ./containers/App.jsx */ 178);
@@ -63,7 +59,7 @@
 	
 	var _redux = __webpack_require__(/*! redux */ 190);
 	
-	var _reducers = __webpack_require__(/*! ./reducers */ 233);
+	var _reducers = __webpack_require__(/*! ./reducers */ 236);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -71,10 +67,10 @@
 	
 	var store = (0, _redux.createStore)(_reducers2.default);
 	
-	(0, _reactDom.render)(_react2.default.createElement(
+	(0, _reactDom.render)(React.createElement(
 	  _reactRedux.Provider,
 	  { store: store },
-	  _react2.default.createElement(_App2.default, null)
+	  React.createElement(_App2.default, null)
 	), document.getElementById('app'));
 
 /***/ },
@@ -22040,10 +22036,6 @@
 	
 	var _Search2 = _interopRequireDefault(_Search);
 	
-	var _ExampleComponent = __webpack_require__(/*! ../components/ExampleComponent.jsx */ 228);
-	
-	var _ExampleComponent2 = _interopRequireDefault(_ExampleComponent);
-	
 	var _index = __webpack_require__(/*! ../actions/index */ 229);
 	
 	var _index2 = _interopRequireDefault(_index);
@@ -22052,7 +22044,7 @@
 	
 	var _VideoPlayer2 = _interopRequireDefault(_VideoPlayer);
 	
-	var _VideoList = __webpack_require__(/*! ../components/VideoList.jsx */ 231);
+	var _VideoList = __webpack_require__(/*! ../components/VideoList.jsx */ 232);
 	
 	var _VideoList2 = _interopRequireDefault(_VideoList);
 	
@@ -22082,7 +22074,7 @@
 	    key: 'searchHandler',
 	    value: function searchHandler(searchInput) {
 	      var context = this;
-	      this.YouTubeRequest({ key: "AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk", query: searchInput, max: 10 }, function (videos) {
+	      this.YouTubeRequest({ key: 'AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk', query: searchInput, max: 10 }, function (videos) {
 	        var promiseArray = [];
 	        videos.forEach(function (video) {
 	          var url = 'https://www.googleapis.com/youtube/v3/videos?id=' + video.id.videoId + '&key=AIzaSyDBu3YryPY3Ek1_CSt8YgF4dDNR7RO1JCk&part=snippet,contentDetails,statistics,status';
@@ -22158,13 +22150,9 @@
 	    value: function render() {
 	      var _this2 = this;
 	
-	      console.log('this.props: ', this.props);
 	      if (this.props.videos) {
-	        var searchModeClass = this.props.searchMode ? "toggle-button-selected" : "toggle-button";
-	        var favouriteModeClass = this.props.searchMode ? "toggle-button" : "toggle-button-selected";
-	        console.log('searchModeClass: ', searchModeClass);
-	        console.log('favouriteModeClass: ', favouriteModeClass);
-	
+	        var searchModeClass = this.props.searchMode ? 'toggle-button-selected' : 'toggle-button';
+	        var favouriteModeClass = this.props.searchMode ? 'toggle-button' : 'toggle-button-selected';
 	        return _react2.default.createElement(
 	          'div',
 	          null,
@@ -22222,10 +22210,10 @@
 	  return props;
 	};
 	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    updateText: function updateText() {
-	      dispatch(_index2.default.exampleAction({ text: "STORE UPDATED!" }));
+	      dispatch(_index2.default.exampleAction({ text: 'STORE UPDATED!' }));
 	    },
 	    updateVideoList: function updateVideoList(videos) {
 	      dispatch(_index2.default.updateVideoListAction(videos));
@@ -22234,7 +22222,6 @@
 	      dispatch(_index2.default.updateFavouritesAction(videos));
 	    },
 	    toggleSearchMode: function toggleSearchMode(toggleType) {
-	      console.log('toggleSearchMode toggleType: ', toggleType);
 	      dispatch(_index2.default.toggleSearchModeAction(toggleType));
 	    }
 	  };
@@ -42287,62 +42274,7 @@
 	}
 
 /***/ },
-/* 228 */
-/*!********************************************************!*\
-  !*** ./src/client/app/components/ExampleComponent.jsx ***!
-  \********************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var ExampleComponent = function (_React$Component) {
-	  _inherits(ExampleComponent, _React$Component);
-	
-	  function ExampleComponent(props) {
-	    _classCallCheck(this, ExampleComponent);
-	
-	    return _possibleConstructorReturn(this, (ExampleComponent.__proto__ || Object.getPrototypeOf(ExampleComponent)).call(this, props));
-	  }
-	
-	  _createClass(ExampleComponent, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'p',
-	          { onClick: this.props.updateText },
-	          ' Click Me Yo (ExampleComponent)! '
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return ExampleComponent;
-	}(_react2.default.Component);
-	
-	exports.default = ExampleComponent;
-
-/***/ },
+/* 228 */,
 /* 229 */
 /*!*****************************************!*\
   !*** ./src/client/app/actions/index.js ***!
@@ -42392,8 +42324,6 @@
 	    key: 'toggleSearchModeAction',
 	    value: function toggleSearchModeAction(toggleType) {
 	      if (toggleType === 'search') {
-	        console.log('action toggleType: ', toggleType);
-	        console.log('inside if statement that thinks it a search ON');
 	        return {
 	          type: 'TOGGLE_SEARCH_MODE_ON'
 	        };
@@ -42426,7 +42356,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _helperfunctions = __webpack_require__(/*! ./helperfunctions */ 238);
+	var _helperfunctions = __webpack_require__(/*! ./helperfunctions */ 231);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -42508,6 +42438,21 @@
 
 /***/ },
 /* 231 */
+/*!******************************************************!*\
+  !*** ./src/client/app/components/helperfunctions.js ***!
+  \******************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	var numberWithCommas = function numberWithCommas(x) {
+	  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	};
+	
+	module.exports = { numberWithCommas: numberWithCommas };
+
+/***/ },
+/* 232 */
 /*!*************************************************!*\
   !*** ./src/client/app/components/VideoList.jsx ***!
   \*************************************************/
@@ -42523,7 +42468,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _VideoListEntry = __webpack_require__(/*! ./VideoListEntry.jsx */ 232);
+	var _VideoListEntry = __webpack_require__(/*! ./VideoListEntry.jsx */ 233);
 	
 	var _VideoListEntry2 = _interopRequireDefault(_VideoListEntry);
 	
@@ -42550,7 +42495,7 @@
 	exports.default = VideoList;
 
 /***/ },
-/* 232 */
+/* 233 */
 /*!******************************************************!*\
   !*** ./src/client/app/components/VideoListEntry.jsx ***!
   \******************************************************/
@@ -42566,18 +42511,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactFontawesome = __webpack_require__(/*! react-fontawesome */ 235);
-	
-	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
-	
-	var _helperfunctions = __webpack_require__(/*! ./helperfunctions */ 238);
+	var _helperfunctions = __webpack_require__(/*! ./helperfunctions */ 231);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var VideoListEntry = function VideoListEntry(_ref) {
 	  var video = _ref.video,
 	      clickHandler = _ref.clickHandler;
-	
 	
 	  return _react2.default.createElement(
 	    'div',
@@ -42628,7 +42568,9 @@
 	exports.default = VideoListEntry;
 
 /***/ },
-/* 233 */
+/* 234 */,
+/* 235 */,
+/* 236 */
 /*!******************************************!*\
   !*** ./src/client/app/reducers/index.js ***!
   \******************************************/
@@ -42642,7 +42584,7 @@
 	
 	var _redux = __webpack_require__(/*! redux */ 190);
 	
-	var _exampleReducer = __webpack_require__(/*! ./exampleReducer */ 234);
+	var _exampleReducer = __webpack_require__(/*! ./exampleReducer */ 237);
 	
 	var _exampleReducer2 = _interopRequireDefault(_exampleReducer);
 	
@@ -42655,7 +42597,7 @@
 	exports.default = mainReducer;
 
 /***/ },
-/* 234 */
+/* 237 */
 /*!***************************************************!*\
   !*** ./src/client/app/reducers/exampleReducer.js ***!
   \***************************************************/
@@ -42693,14 +42635,12 @@
 	        searchMode: state.searchMode
 	      };
 	    case 'TOGGLE_SEARCH_MODE_ON':
-	      console.log('action: ', action);
 	      return {
 	        favourites: state.favourites,
 	        videos: state.videos,
 	        searchMode: true
 	      };
 	    case 'TOGGLE_SEARCH_MODE_OFF':
-	      console.log('action: ', action);
 	      return {
 	        favourites: state.favourites,
 	        videos: state.videos,
@@ -42712,170 +42652,6 @@
 	};
 	
 	exports.default = exampleReducer;
-
-/***/ },
-/* 235 */
-/*!******************************************!*\
-  !*** ./~/react-fontawesome/lib/index.js ***!
-  \******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _screenReaderStyles = __webpack_require__(/*! ./screen-reader-styles */ 236);
-	
-	var _screenReaderStyles2 = _interopRequireDefault(_screenReaderStyles);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
-	/**
-	 * A React component for the font-awesome icon library.
-	 *
-	 *
-	 * @param {String} [ariaLabel] An extra accessibility label to put on the icon
-	 * @param {Boolean} [border=false] Whether or not to show a border radius
-	 * @param {String} [className] An extra set of CSS classes to add to the component
-	 * @param {Object} [cssModule] Option to pass FontAwesome CSS as a module
-	 * @param {Boolean} [fixedWidth=false] Make buttons fixed width
-	 * @param {String} [flip=false] Flip the icon's orientation.
-	 * @param {Boolean} [inverse=false]Inverse the icon's color
-	 * @param {String} name Name of the icon to use
-	 * @param {Boolean} [pulse=false] Rotate icon with 8 steps (rather than smoothly)
-	 * @param {Number} [rotate] The degress to rotate the icon by
-	 * @param {String} [size] The icon scaling size
-	 * @param {Boolean} [spin=false] Spin the icon
-	 * @param {String} [stack] Stack an icon on top of another
-	 * @param {String} [tag=span] The HTML tag to use as a string (eg 'i' or 'em')
-	 * @module FontAwesome
-	 * @type {ReactClass}
-	 */
-	exports.default = _react2.default.createClass({
-	
-	  displayName: 'FontAwesome',
-	
-	  propTypes: {
-	    ariaLabel: _react2.default.PropTypes.string,
-	    border: _react2.default.PropTypes.bool,
-	    className: _react2.default.PropTypes.string,
-	    cssModule: _react2.default.PropTypes.object,
-	    fixedWidth: _react2.default.PropTypes.bool,
-	    flip: _react2.default.PropTypes.oneOf(['horizontal', 'vertical']),
-	    inverse: _react2.default.PropTypes.bool,
-	    name: _react2.default.PropTypes.string.isRequired,
-	    pulse: _react2.default.PropTypes.bool,
-	    rotate: _react2.default.PropTypes.oneOf([90, 180, 270]),
-	    size: _react2.default.PropTypes.oneOf(['lg', '2x', '3x', '4x', '5x']),
-	    spin: _react2.default.PropTypes.bool,
-	    stack: _react2.default.PropTypes.oneOf(['1x', '2x']),
-	    tag: _react2.default.PropTypes.string
-	  },
-	
-	  render: function render() {
-	    var _props = this.props;
-	    var border = _props.border;
-	    var cssModule = _props.cssModule;
-	    var className = _props.className;
-	    var fixedWidth = _props.fixedWidth;
-	    var flip = _props.flip;
-	    var inverse = _props.inverse;
-	    var name = _props.name;
-	    var pulse = _props.pulse;
-	    var rotate = _props.rotate;
-	    var size = _props.size;
-	    var spin = _props.spin;
-	    var stack = _props.stack;
-	    var _props$tag = _props.tag;
-	    var tag = _props$tag === undefined ? 'span' : _props$tag;
-	    var ariaLabel = _props.ariaLabel;
-	
-	    var props = _objectWithoutProperties(_props, ['border', 'cssModule', 'className', 'fixedWidth', 'flip', 'inverse', 'name', 'pulse', 'rotate', 'size', 'spin', 'stack', 'tag', 'ariaLabel']);
-	
-	    var classNames = [];
-	
-	    if (cssModule) {
-	      classNames.push(cssModule['fa']);
-	      classNames.push(cssModule['fa-' + name]);
-	      size && classNames.push(cssModule['fa-' + size]);
-	      spin && classNames.push(cssModule['fa-spin']);
-	      pulse && classNames.push(cssModule['fa-pulse']);
-	      border && classNames.push(cssModule['fa-border']);
-	      fixedWidth && classNames.push(cssModule['fa-fw']);
-	      inverse && classNames.push(cssModule['fa-inverse']);
-	      flip && classNames.push(cssModule['fa-flip-' + flip]);
-	      rotate && classNames.push(cssModule['fa-rotate-' + rotate]);
-	      stack && classNames.push(cssModule['fa-stack-' + stack]);
-	    } else {
-	      classNames.push('fa');
-	      classNames.push('fa-' + name);
-	      size && classNames.push('fa-' + size);
-	      spin && classNames.push('fa-spin');
-	      pulse && classNames.push('fa-pulse');
-	      border && classNames.push('fa-border');
-	      fixedWidth && classNames.push('fa-fw');
-	      inverse && classNames.push('fa-inverse');
-	      flip && classNames.push('fa-flip-' + flip);
-	      rotate && classNames.push('fa-rotate-' + rotate);
-	      stack && classNames.push('fa-stack-' + stack);
-	    }
-	
-	    // Add any custom class names at the end.
-	    className && classNames.push(className);
-	    return _react2.default.createElement(tag, _extends({}, props, { 'aria-hidden': true, className: classNames.join(' ') }), ariaLabel ? _react2.default.createElement('span', { style: _screenReaderStyles2.default }, ariaLabel) : null);
-	  }
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 236 */
-/*!*********************************************************!*\
-  !*** ./~/react-fontawesome/lib/screen-reader-styles.js ***!
-  \*********************************************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = {
-	  position: 'absolute',
-	  width: '1px',
-	  height: '1px',
-	  padding: '0px',
-	  margin: '-1px',
-	  overflow: 'hidden',
-	  clip: 'rect(0px, 0px, 0px, 0px)',
-	  border: '0px'
-	};
-	module.exports = exports['default'];
-
-/***/ },
-/* 237 */,
-/* 238 */
-/*!******************************************************!*\
-  !*** ./src/client/app/components/helperfunctions.js ***!
-  \******************************************************/
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	var numberWithCommas = function numberWithCommas(x) {
-	  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	};
-	
-	module.exports = { numberWithCommas: numberWithCommas };
 
 /***/ }
 /******/ ]);

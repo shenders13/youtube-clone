@@ -1,5 +1,7 @@
-var express = require('express');
-var path = require('path');
+// var express = require('express');
+import express from 'express';
+// var path = require('path');
+import path from 'path';
 var app = express();
 
 app.use(express.static(path.join(__dirname, './client')));

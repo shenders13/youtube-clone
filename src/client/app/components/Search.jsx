@@ -1,6 +1,5 @@
-import React from 'react'
-import { Debounce } from 'react-throttle'
-
+import React from 'react';
+import { Debounce } from 'react-throttle';
 
 const Search = ({searchHandler}) => (
   <div className="search-bar form-inline">
