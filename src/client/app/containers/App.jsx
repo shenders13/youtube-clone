@@ -55,6 +55,20 @@ class App extends React.Component {
     this.searchHandler(event.snippet.title)
   }
 
+  favouritesHandler(video) {
+    if (this.props.favourites) {
+      var videos = this.props.favourites;
+      videos.push(video);
+    } else {
+      var videos = [video]
+    }
+    this.props.updatefavourites(videos)
+  }
+
+  toggleSearchModeHelper(toggleType) {
+      this.props.toggleSearchMode(toggleType)      
+  }
+
   YouTubeRequest(options, callback) {
     $.ajax({
       url: 'https://www.googleapis.com/youtube/v3/search',
@@ -77,15 +91,26 @@ class App extends React.Component {
   }
 
   render () {
+    console.log('this.props: ', this.props)
     if (this.props.videos) {
       return (
         <div>
-          <Search searchHandler={this.searchHandler.bind(this)}/>
+          <div className="col-md-7">
+            <Search searchHandler={this.searchHandler.bind(this)}/>
+          </div>
+          <div className="col-md-5">
+            <button className="toggle-button" onClick={() => (this.toggleSearchModeHelper('search'))}>
+              <span className="glyphicon glyphicon-search"></span> Search Mode
+            </button>
+            <button className="toggle-button" onClick={() => (this.toggleSearchModeHelper('favourites'))}>
+              <span className="glyphicon glyphicon-star"></span> Favourites Mode
+            </button>
+          </div>
            <div className="col-md-7">
-             <VideoPlayer video={this.props.videos[0]}/>
+             <VideoPlayer video={this.props.videos[0]} favouritesHandler={this.favouritesHandler.bind(this)}/>
            </div>
            <div className="col-md-5">
-             <VideoList videos={this.props.videos} clickHandler={this.clickHandler.bind(this)}/>
+             <VideoList videos={this.props.searchMode ? this.props.videos : this.props.favourites} clickHandler={this.clickHandler.bind(this)}/>
            </div>
         </div>
       );
@@ -97,12 +122,12 @@ class App extends React.Component {
   }
 }
 
-
-
 const mapStateToProps = (state) => {
   const props = {
     text: state.exampleReducer.text,
-    videos: state.exampleReducer.videos
+    videos: state.exampleReducer.videos,
+    favourites: state.exampleReducer.favourites,
+    searchMode: state.exampleReducer.searchMode
   };
   return props;
 };
@@ -114,6 +139,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     updateVideoList: (videos) => {
       dispatch(Actions.updateVideoListAction(videos))
+    },
+    updatefavourites: (videos) => {
+      dispatch(Actions.updateFavouritesAction(videos))
+    },
+    toggleSearchMode: (toggleType) => {
+      console.log('toggleSearchMode toggleType: ', toggleType)
+      dispatch(Actions.toggleSearchModeAction(toggleType))
     }
   }
 }

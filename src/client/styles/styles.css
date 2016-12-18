@@ -17,15 +17,13 @@ body {
 .search-bar {
   border-radius: 1px;
   background: #fff;
-  margin-left: 1%;
-  margin-right: 1%;
   margin-top: 1%;
   margin-bottom: 1%;
 }
 
 .search-bar .form-control {
   border-radius: 2px;
-  width: 80%
+  width: 100%
 }
 .search-bar .btn {
   border-radius: 2px;
@@ -132,3 +130,36 @@ div.video-list.media {
   float: right;
 }
 
+.favourites-button:active { 
+    background-color: #e13934;
+}
+
+.favourites-button:hover {
+  cursor:pointer;
+}
+
+.toggle-button {
+  margin-top: 8px;
+  border-radius: 1px;
+  color: #7b7b7b;
+  margin-right: 8px;
+  font-size: 12px;
+  text-align: right;
+  padding: 8px 21px 6px 8px;
+  background-color: #ffffff;
+  border: #eaeaea solid 1px;
+  box-shadow: 0px 0.1px 0.1px;
+}
+
+.toggle-button-selected {
+  margin-top: 8px;
+  border-radius: 1px;
+  color: #ff5757;
+  margin-right: 8px;
+  font-size: 12px;
+  text-align: right;
+  padding: 8px 21px 6px 8px;
+  background-color: #ffffff;
+  border: #eaeaea solid 1px;
+  box-shadow: 0px 0.1px 0.1px;
+}

@@ -4,8 +4,8 @@ import VideoListEntry from './VideoListEntry.jsx'
 const VideoList = ({ videos, clickHandler }) => {
   return (
   <div className="video-list media">
-    {videos.map( (video) => 
-      <VideoListEntry video={video} clickHandler={clickHandler}/> 
+    {videos.map( (video, i) => 
+      <VideoListEntry video={video} clickHandler={clickHandler} key={i}/> 
     )}
   </div>
   );

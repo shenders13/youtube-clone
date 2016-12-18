@@ -8,9 +8,6 @@ const Search = ({searchHandler}) => (
       <Debounce time="300" handler="onChange">
         <input placeholder="Search for videos here..." onChange={(event) => (searchHandler(event.target.value))} className="form-control" type="text" />
       </Debounce>
-      <button className="btn hidden-sm-down">
-        <span className="glyphicon glyphicon-search"></span>
-      </button>
     </div>
   </div> 
 );

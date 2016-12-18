@@ -22116,6 +22116,22 @@
 	      this.searchHandler(event.snippet.title);
 	    }
 	  }, {
+	    key: 'favouritesHandler',
+	    value: function favouritesHandler(video) {
+	      if (this.props.favourites) {
+	        var videos = this.props.favourites;
+	        videos.push(video);
+	      } else {
+	        var videos = [video];
+	      }
+	      this.props.updatefavourites(videos);
+	    }
+	  }, {
+	    key: 'toggleSearchModeHelper',
+	    value: function toggleSearchModeHelper(toggleType) {
+	      this.props.toggleSearchMode(toggleType);
+	    }
+	  }, {
 	    key: 'YouTubeRequest',
 	    value: function YouTubeRequest(options, callback) {
 	      $.ajax({
@@ -22140,20 +22156,47 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
+	      console.log('this.props: ', this.props);
 	      if (this.props.videos) {
 	        return _react2.default.createElement(
 	          'div',
 	          null,
-	          _react2.default.createElement(_Search2.default, { searchHandler: this.searchHandler.bind(this) }),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-md-7' },
-	            _react2.default.createElement(_VideoPlayer2.default, { video: this.props.videos[0] })
+	            _react2.default.createElement(_Search2.default, { searchHandler: this.searchHandler.bind(this) })
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'col-md-5' },
-	            _react2.default.createElement(_VideoList2.default, { videos: this.props.videos, clickHandler: this.clickHandler.bind(this) })
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'toggle-button', onClick: function onClick() {
+	                  return _this2.toggleSearchModeHelper('search');
+	                } },
+	              _react2.default.createElement('span', { className: 'glyphicon glyphicon-search' }),
+	              ' Search Mode'
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { className: 'toggle-button', onClick: function onClick() {
+	                  return _this2.toggleSearchModeHelper('favourites');
+	                } },
+	              _react2.default.createElement('span', { className: 'glyphicon glyphicon-star' }),
+	              ' Favourites Mode'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-md-7' },
+	            _react2.default.createElement(_VideoPlayer2.default, { video: this.props.videos[0], favouritesHandler: this.favouritesHandler.bind(this) })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-md-5' },
+	            _react2.default.createElement(_VideoList2.default, { videos: this.props.searchMode ? this.props.videos : this.props.favourites, clickHandler: this.clickHandler.bind(this) })
 	          )
 	        );
 	      }
@@ -22167,7 +22210,9 @@
 	var mapStateToProps = function mapStateToProps(state) {
 	  var props = {
 	    text: state.exampleReducer.text,
-	    videos: state.exampleReducer.videos
+	    videos: state.exampleReducer.videos,
+	    favourites: state.exampleReducer.favourites,
+	    searchMode: state.exampleReducer.searchMode
 	  };
 	  return props;
 	};
@@ -22179,6 +22224,13 @@
 	    },
 	    updateVideoList: function updateVideoList(videos) {
 	      dispatch(_index2.default.updateVideoListAction(videos));
+	    },
+	    updatefavourites: function updatefavourites(videos) {
+	      dispatch(_index2.default.updateFavouritesAction(videos));
+	    },
+	    toggleSearchMode: function toggleSearchMode(toggleType) {
+	      console.log('toggleSearchMode toggleType: ', toggleType);
+	      dispatch(_index2.default.toggleSearchModeAction(toggleType));
 	    }
 	  };
 	};
@@ -24560,11 +24612,6 @@
 	        _react2.default.createElement('input', { placeholder: 'Search for videos here...', onChange: function onChange(event) {
 	            return searchHandler(event.target.value);
 	          }, className: 'form-control', type: 'text' })
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        { className: 'btn hidden-sm-down' },
-	        _react2.default.createElement('span', { className: 'glyphicon glyphicon-search' })
 	      )
 	    )
 	  );
@@ -42328,6 +42375,28 @@
 	        videos: videos
 	      };
 	    }
+	  }, {
+	    key: 'updateFavouritesAction',
+	    value: function updateFavouritesAction(videos) {
+	      return {
+	        type: 'UPDATE_FAVOURITES_LIST',
+	        videos: videos
+	      };
+	    }
+	  }, {
+	    key: 'toggleSearchModeAction',
+	    value: function toggleSearchModeAction(toggleType) {
+	      if (toggleType === 'search') {
+	        console.log('action toggleType: ', toggleType);
+	        console.log('inside if statement that thinks it a search ON');
+	        return {
+	          type: 'TOGGLE_SEARCH_MODE_ON'
+	        };
+	      }
+	      return {
+	        type: 'TOGGLE_SEARCH_MODE_OFF'
+	      };
+	    }
 	  }]);
 	
 	  return Actions;
@@ -42357,7 +42426,8 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var VideoPlayer = function VideoPlayer(_ref) {
-	  var video = _ref.video;
+	  var video = _ref.video,
+	      favouritesHandler = _ref.favouritesHandler;
 	
 	
 	  return _react2.default.createElement(
@@ -42403,7 +42473,9 @@
 	          { className: 'col-xs-6' },
 	          _react2.default.createElement(
 	            'span',
-	            { className: 'favourites-button' },
+	            { className: 'favourites-button', onClick: function onClick(event) {
+	                return favouritesHandler(video);
+	              } },
 	            _react2.default.createElement('span', { className: 'glyphicon glyphicon-plus' }),
 	            'Add to Favourites'
 	          )
@@ -42459,8 +42531,8 @@
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'video-list media' },
-	    videos.map(function (video) {
-	      return _react2.default.createElement(_VideoListEntry2.default, { video: video, clickHandler: clickHandler });
+	    videos.map(function (video, i) {
+	      return _react2.default.createElement(_VideoListEntry2.default, { video: video, clickHandler: clickHandler, key: i });
 	    })
 	  );
 	};
@@ -42590,7 +42662,8 @@
 	  value: true
 	});
 	var initialState = {
-	  text: 'text from redux store'
+	  text: 'text from redux store',
+	  searchMode: true
 	};
 	
 	var exampleReducer = function exampleReducer() {
@@ -42604,7 +42677,29 @@
 	      };
 	    case 'UPDATE_VIDEO_LIST':
 	      return {
-	        videos: action.videos
+	        videos: action.videos,
+	        favourites: state.favourites,
+	        searchMode: state.searchMode
+	      };
+	    case 'UPDATE_FAVOURITES_LIST':
+	      return {
+	        favourites: action.videos,
+	        videos: state.videos,
+	        searchMode: state.searchMode
+	      };
+	    case 'TOGGLE_SEARCH_MODE_ON':
+	      console.log('action: ', action);
+	      return {
+	        favourites: state.favourites,
+	        videos: state.videos,
+	        searchMode: true
+	      };
+	    case 'TOGGLE_SEARCH_MODE_OFF':
+	      console.log('action: ', action);
+	      return {
+	        favourites: state.favourites,
+	        videos: state.videos,
+	        searchMode: false
 	      };
 	    default:
 	      return state;

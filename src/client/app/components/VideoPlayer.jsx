@@ -1,7 +1,7 @@
 import React from 'react'
 import { numberWithCommas } from './helperfunctions'
 
-const VideoPlayer = ({ video }) => {
+const VideoPlayer = ({ video, favouritesHandler }) => {
 
   return (
   <div className="video-player">
@@ -19,7 +19,7 @@ const VideoPlayer = ({ video }) => {
           </div>
         </div>
         <div className='col-xs-6'>
-          <span className='favourites-button'>
+          <span className='favourites-button' onClick={(event) => (favouritesHandler(video))}>
            <span className="glyphicon glyphicon-plus"></span> 
               Add to Favourites
           </span>
