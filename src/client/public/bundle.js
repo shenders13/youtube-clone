@@ -42342,7 +42342,7 @@
   \***************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -42352,51 +42352,72 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _helperfunctions = __webpack_require__(/*! ./helperfunctions */ 238);
 	
-	function numberWithCommas(x) {
-	  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	}
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var VideoPlayer = function VideoPlayer(_ref) {
 	  var video = _ref.video;
 	
 	
 	  return _react2.default.createElement(
-	    "div",
-	    { className: "video-player" },
+	    'div',
+	    { className: 'video-player' },
 	    _react2.default.createElement(
-	      "div",
-	      { className: "embed-responsive embed-responsive-16by9" },
-	      _react2.default.createElement("iframe", { className: "embed-responsive-item", src: 'https://www.youtube.com/embed/' + video.id, allowFullScreen: true })
+	      'div',
+	      { className: 'embed-responsive embed-responsive-16by9' },
+	      _react2.default.createElement('iframe', { className: 'embed-responsive-item', src: 'https://www.youtube.com/embed/' + video.id, allowFullScreen: true })
 	    ),
 	    _react2.default.createElement(
-	      "div",
-	      { className: "video-player-details" },
+	      'div',
+	      { className: 'video-player-details' },
 	      _react2.default.createElement(
-	        "h3",
+	        'h3',
 	        null,
 	        video.snippet.title
 	      ),
 	      _react2.default.createElement(
-	        "div",
-	        { className: "video-list-entry-views-player" },
-	        _react2.default.createElement("span", { className: "glyphicon glyphicon-eye-open player-stats" }),
-	        " ",
-	        numberWithCommas(video.statistics.viewCount),
-	        " views",
-	        _react2.default.createElement("span", { className: "glyphicon glyphicon-user player-stats left-pad" }),
-	        " ",
-	        video.snippet.channelTitle,
-	        _react2.default.createElement("span", { className: "glyphicon glyphicon-thumbs-up player-stats left-pad" }),
-	        " ",
-	        numberWithCommas(video.statistics.likeCount),
-	        " upvotes"
+	        'div',
+	        { className: 'player-stat-row' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-xs-6 no-left-padding' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'video-list-entry-views-player' },
+	            _react2.default.createElement('span', { className: 'glyphicon glyphicon-eye-open player-stats' }),
+	            ' ',
+	            (0, _helperfunctions.numberWithCommas)(video.statistics.viewCount),
+	            ' views',
+	            _react2.default.createElement('span', { className: 'glyphicon glyphicon-user player-stats left-pad' }),
+	            ' ',
+	            video.snippet.channelTitle,
+	            _react2.default.createElement('span', { className: 'glyphicon glyphicon-thumbs-up player-stats left-pad' }),
+	            ' ',
+	            (0, _helperfunctions.numberWithCommas)(video.statistics.likeCount),
+	            ' upvotes'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'col-xs-6' },
+	          _react2.default.createElement(
+	            'span',
+	            { className: 'favourites-button' },
+	            _react2.default.createElement('span', { className: 'glyphicon glyphicon-plus' }),
+	            'Add to Favourites'
+	          )
+	        )
 	      ),
 	      _react2.default.createElement(
-	        "div",
-	        null,
-	        video.snippet.description
+	        'div',
+	        { className: 'video-description-player-box' },
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'video-description-player' },
+	          video.snippet.description
+	        )
 	      )
 	    )
 	  );
@@ -42472,11 +42493,9 @@
 	
 	var _reactFontawesome2 = _interopRequireDefault(_reactFontawesome);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _helperfunctions = __webpack_require__(/*! ./helperfunctions */ 238);
 	
-	function numberWithCommas(x) {
-	  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	}
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var VideoListEntry = function VideoListEntry(_ref) {
 	  var video = _ref.video,
@@ -42505,14 +42524,14 @@
 	        'div',
 	        { className: 'video-list-entry-views' },
 	        _react2.default.createElement('span', { className: 'glyphicon glyphicon-eye-open video-icon' }),
-	        numberWithCommas(video.statistics.viewCount),
+	        (0, _helperfunctions.numberWithCommas)(video.statistics.viewCount),
 	        ' views',
 	        _react2.default.createElement('span', { className: 'glyphicon glyphicon-user left-pad' }),
 	        ' ',
 	        video.snippet.channelTitle,
 	        _react2.default.createElement('span', { className: 'glyphicon glyphicon-thumbs-up left-pad' }),
 	        ' ',
-	        numberWithCommas(video.statistics.likeCount),
+	        (0, _helperfunctions.numberWithCommas)(video.statistics.likeCount),
 	        ' upvotes'
 	      ),
 	      _react2.default.createElement(
@@ -42741,6 +42760,22 @@
 	  border: '0px'
 	};
 	module.exports = exports['default'];
+
+/***/ },
+/* 237 */,
+/* 238 */
+/*!******************************************************!*\
+  !*** ./src/client/app/components/helperfunctions.js ***!
+  \******************************************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var numberWithCommas = function numberWithCommas(x) {
+	  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	};
+	
+	module.exports = { numberWithCommas: numberWithCommas };
 
 /***/ }
 /******/ ]);

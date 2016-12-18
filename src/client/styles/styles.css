@@ -48,6 +48,7 @@ body {
   border: 0;
   box-shadow: 0 1px 2px rgba(0,0,0,.1);
   margin-top: 10px;
+  padding-bottom: 14px;
 }
 
 .video-list {
@@ -87,18 +88,16 @@ div.video-list.media {
 .video-list-entry-views {
   padding: 3px 0px 6px;
   color: #9a9a9a;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .video-list-entry-views-player {
   padding: 3px 0px 6px;
   color: #9a9a9a;
-  font-size: 11px;
+  font-size: 14px;
   margin-top: 10px;
   margin-bottom: 4px;
 }
-
-
 
 .video-icon {
   margin-right: 5px;
@@ -107,3 +106,29 @@ div.video-list.media {
 .left-pad {
   margin-left: 5px;
 }
+
+.no-left-padding {
+  padding-left: 0px;
+}
+
+.player-stat-row {
+  margin-bottom: 40px;
+}
+
+.video-description-player-box {
+  margin-top:30px;
+}
+
+.favourites-button {
+  padding: 2px 10px;
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 0px;
+  color: #fff;
+  background-color: #f13934;
+  border-color: #fff9f8;
+  display: inline-block;
+  float: right;
+}
+

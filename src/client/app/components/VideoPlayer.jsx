@@ -1,8 +1,5 @@
 import React from 'react'
-
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+import { numberWithCommas } from './helperfunctions'
 
 const VideoPlayer = ({ video }) => {
 
@@ -13,17 +10,29 @@ const VideoPlayer = ({ video }) => {
     </div>
     <div className="video-player-details">
       <h3>{video.snippet.title}</h3>
-      <div className="video-list-entry-views-player">
-          <span className="glyphicon glyphicon-eye-open player-stats"></span> {numberWithCommas(video.statistics.viewCount)} views  
-          <span className="glyphicon glyphicon-user player-stats left-pad"></span> {video.snippet.channelTitle}  
-          <span className="glyphicon glyphicon-thumbs-up player-stats left-pad"></span> {numberWithCommas(video.statistics.likeCount)} upvotes
+      <div className='player-stat-row'>
+        <div className='col-xs-6 no-left-padding'>
+          <div className="video-list-entry-views-player">
+              <span className="glyphicon glyphicon-eye-open player-stats"></span> {numberWithCommas(video.statistics.viewCount)} views  
+              <span className="glyphicon glyphicon-user player-stats left-pad"></span> {video.snippet.channelTitle}  
+              <span className="glyphicon glyphicon-thumbs-up player-stats left-pad"></span> {numberWithCommas(video.statistics.likeCount)} upvotes
+          </div>
+        </div>
+        <div className='col-xs-6'>
+          <span className='favourites-button'>
+           <span className="glyphicon glyphicon-plus"></span> 
+              Add to Favourites
+          </span>
+        </div>
       </div>
-      <div>{video.snippet.description}</div>
+      <div className='video-description-player-box'>
+        <br />
+        <span className='video-description-player'>{video.snippet.description}</span>
+      </div>
     </div>
   </div>
   );
 };
-
 
 VideoPlayer.propTypes = {
   video: React.PropTypes.object.isRequired

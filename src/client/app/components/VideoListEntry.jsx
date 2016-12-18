@@ -1,9 +1,6 @@
 import React from 'react'
 import FontAwesome from 'react-fontawesome'
-
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+import { numberWithCommas } from './helperfunctions'
 
 const VideoListEntry = ({ video, clickHandler }) => {
 
