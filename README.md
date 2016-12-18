@@ -10,16 +10,21 @@ A demo is available at https://youtube-clone.herokuapp.com/
 
 Clone it to your machine:
 
-'git clone https://github.com/shenders13/youtube-clone.git'
+`git clone https://github.com/shenders13/youtube-clone.git`
 
 Install all the node dependencies:
 
-'npm install'
+`npm install`
 
 Start the server. From the root directory:
 
-'npm start'
+`npm start`
 
 In a new tab in your terminal, start the autotranspiler. This detects any changes you make to the client runs webpack to automatically transpile your changes from JSX to javascript.:
 
-'npm run dev'
+`npm run dev`
+
+### Suggested improvements
+
+- A new video starts automatically when the current one finishes. Especially useful to "play through" a user's favourites list.
+- User accounts (will obviously require a DB) so that a user's favourite list can persist after refreshing the browser.
